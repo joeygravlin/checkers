@@ -1,8 +1,8 @@
 {
-  "name": "chinese-checkers",
+  "name": "checkers",
   "version": "0.0.1",
   "author": "Joseph Gravlin <joeygravlin@gmail.com>",
-  "description": "Chinese checkers game built on electron-vue.",
+  "description": "Checkers game built on electron-vue.",
   "license": null,
   "main": "./dist/electron/main.js",
   "scripts": {
@@ -22,7 +22,7 @@
     "postinstall": "npm run lint:fix"
   },
   "build": {
-    "productName": "chinese-checkers",
+    "productName": "checkers",
     "appId": "com.example.yourapp",
     "directories": {
       "output": "build"

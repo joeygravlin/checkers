@@ -1,6 +1,6 @@
-# chinese-checkers
+# checkers
 
-> Chinese checkers app built on electron-vue.
+> Checkers app built on electron-vue.
 
 #### Build Setup
 

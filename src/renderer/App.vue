@@ -6,7 +6,7 @@
 
 <script>
   export default {
-    name: 'chinese-checkers'
+    name: 'checkers'
   }
 </script>
 
