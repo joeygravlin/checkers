@@ -10,6 +10,7 @@ class Game {
   move(possIndex, currIndex) {
     if (this.inProgress && isValidMove(possIndex, currIndex)) {
       this.squares[possIndex].value = this.currentTurn
+      this.squares[currIndex].value = null
 
 
       this.checkEndGame()
@@ -25,13 +26,26 @@ class Game {
   // TODO: Finish valid move check
   isValidMove(possIndex, currIndex) {
     valid = false
-    // if possIndex empty and within one row and at most 1 square diag left or right
-    if () {
-      valid = true
-    }
-    // can attack
-    else if () {
-
+    // if squares[possIndex] is empty AND
+    // if squares[possIndex] is valid AND
+    // if the diff between squares[possIndex] % 8 and squares[currIndex] is 1 (ie is it moving diagonally)
+    if (this.squares[possIndex].isValid === true &&
+      this.squares[possIndex].value === null &&
+      Math.abs((possIndex % 8) - (currIndex % 8)) === 1) {
+      // if players piece is NOT a king
+      if (this.squares[currIndex].isKing === false) {
+        // if player is moving in the right direction (ie if it piece is white is it moving to the next row down (eg to an index in the next (printed) row) OR
+        //if it piece is red is moving to the previous row down (eg to an index in the previous (printed) row))
+        if ((this.squares[currIndex].value === Game.white &&
+          Math.floor(possIndex / 8) - Math.floor(currIndex / 8) === 1) ||
+          (this.squares[currIndex].value === Game.red &&
+            Math.floor(possIndex / 8) - Math.floor(currIndex / 8) === -1)) {
+          valid = true
+        }
+      }
+      else {
+        valid = true
+      }
     }
 
     return valid
