@@ -35,7 +35,7 @@ class Game {
       // if players piece is NOT a king
       if (this.squares[currIndex].isKing === false) {
         // if player is moving in the right direction (ie if it piece is white is it moving to the next row down (eg to an index in the next (printed) row) OR
-        //if it piece is red is moving to the previous row down (eg to an index in the previous (printed) row))
+        // if it piece is red is moving to the previous row down (eg to an index in the previous (printed) row))
         if ((this.squares[currIndex].value === Game.white &&
           Math.floor(possIndex / 8) - Math.floor(currIndex / 8) === 1) ||
           (this.squares[currIndex].value === Game.red &&
