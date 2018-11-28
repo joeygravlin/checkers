@@ -38,7 +38,7 @@ class Game {
         // if it piece is red is moving to the previous row down (eg to an index in the previous (printed) row))
         if ((this.squares[currIndex].value === Game.white &&
           Math.floor(possIndex / 8) - Math.floor(currIndex / 8) === 1) ||
-          (this.squares[currIndex].value === Game.red &&
+          (this.squares[currIndex].value === Game.black &&
             Math.floor(possIndex / 8) - Math.floor(currIndex / 8) === -1)) {
           valid = true
         }
@@ -89,7 +89,6 @@ class Game {
       }
     }
   }
-
 
   startGame() {
     this.inProgress = true
