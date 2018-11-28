@@ -4,5 +4,6 @@ class Square {
     this.isHighlighted = false
     this.isSelected = false
     this.canAttack = false
+    this.isKing = false
   }
 }
