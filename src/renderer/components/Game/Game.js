@@ -14,9 +14,13 @@ class Game {
       this.squares[currIndex].selected = false
 
       this.checkEndGame()
-      this.squares[finalIndex].canAttack = this.canAttack(finalIndex)
 
+      // NOT SURE WE WANT THIS IN THIS FORM
+      if (this.canAttack(finalIndex)) {
+        this.squares[finalIndex].canAttack = true
+        this.squares[finalIndex].selected = true
 
+      }
       else {
         this.currentTurn = (this.currentTurn === Game.black) ? Game.white : Game.black
       }
@@ -26,15 +30,21 @@ class Game {
   // TODO: Finish valid move check
   isValidMove(finalIndex, currIndex) {
     valid = false
-    // if squares[finalIndex] is empty AND
-    // if squares[finalIndex] is valid AND
+
+    // if squares[finalIndex] is empty
+    // AND
+    // if squares[finalIndex] is valid
+    // AND
     // if the absolute diff between squares[finalIndex] % 8 and squares[currIndex] % 8 is 1 (ie is it moving diagonally)
     if (this.squares[finalIndex].isValid === true &&
       this.squares[finalIndex].value === null &&
       Math.abs((finalIndex % 8) - (currIndex % 8)) === 1) {
+
       // if players piece is NOT a king
       if (this.squares[currIndex].isKing === false) {
-        // if player is moving in the right direction (ie if it piece is white is it moving to the next row down (eg to an index in the next (printed) row) OR
+
+        // if player is moving in the right direction (ie if it piece is white is it moving to the next row down (eg to an index in the next (printed) row)
+        // OR
         // if piece is white is moving to the previous row down (eg to an index in the previous (printed) row))
         if ((this.squares[currIndex].value === Game.white &&
           Math.floor(finalIndex / 8) - Math.floor(currIndex / 8) === 1) ||
@@ -54,17 +64,18 @@ class Game {
   canAttack(currIndex) {
     canAttack = false
 
-    // direction for white
+    //diag direction Game.white
     diagLeft = 7
     diagRight = 9
 
-    // change direction if black
+    //diag direction Game.black
     if (this.currentTurn === Game.black) {
       diagLeft = -9
       diagRight = -7
     }
 
-    // if either square in the "forward" direction does not equal the current players turn and is not null OR
+    // if either square in the "forward" direction does not equal the current players turn and is not null
+    // OR
     // if either square in the "backwards" direction does not equal the current players turn and is not null AND players piece is a king:
     // --> CAN ATTACK
     if ((this.squares[currIndex + diagLeft].value != this.currentTurn
