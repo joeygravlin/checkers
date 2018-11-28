@@ -1,11 +1,9 @@
 class Game {
   constructor () {
-    this.inProgress = true
+    this.inProgress = false
     this.winner = null
-    this.currTurn = Game.red
+    this.currTurn = null
     this.squares = new Array(64).fill.map(square => new Square())
-    this.loadBoard()
-    this.printBoard
   }
 
   // TODO: Finish move
@@ -20,7 +18,7 @@ class Game {
         this.squares[possIndex].canAttack = true
       }
 
-      this.currentTurn = (this.currentTurn === Game.red) ? Game.black : Game.red
+      this.currentTurn = (this.currentTurn === Game.red) ? Game.white : Game.red
     }
   }
 
@@ -28,7 +26,7 @@ class Game {
   isValidMove(possIndex, currIndex) {
     valid = false
     // if possIndex empty and within one row and at most 1 square diag left or right
-    if (!this.sqares[possIndex].value && [possIndex](-9 < (possIndex - currIndex) < 9) && (-1 <= ((possIndex % 8) - (currIndex % 8)) <= 1)) {
+    if () {
       valid = true
     }
     // can attack
@@ -40,35 +38,50 @@ class Game {
   }
 
   canAttack(currIndex) {
+    if (this.squares[currIndex].isKing === false) {
 
+    } else {
+
+    }
   }
 
   checkEndGame() {
-    redPieces = 0;
+    whitePieces = 0;
     blackPieces = 0;
 
     squares.forEach(s => {
-      if (s.value === 'r')
+      if (s.value === Game.white)
         redPieces++
-      if (s.value === 'b')
+      if (s.value === Game.red)
         blackPieces++
     })
 
     if (redPieces === 0 || blackPieces === 0) {
       this.inProgress = false
-      this.winner = (redPieces < blackPieces) ? Game.black : Game.red
+      this.winner = (whitePieces < blackPieces) ? Game.white : Game.red
     }
   }
 
   loadBoard() {
     for (i = 0; i < 64; i++) {
-      if (i <= 21 && i % 2 === 0) {
-        this.squares[i].value = Game.black
-      }
-      if (i >= 40 && i % 2 === 1) {
-        this.squares[i].value = Game.red
+      //setting squares as valid, putting pieces "on" board
+      if ((Math.floor(i / 8) % 2 === 0 && (i % 2) === 0) ||
+        (Math.floor(i / 8) % 2 === 1 && (i % 2) === 1)) {
+        this.squares[i].isValid = true
+        if (i <= 31)
+          this.squares[i].value = Game.white
+        if (i <= 48)
+          this.squares[i].value = Game.red
       }
     }
+  }
+
+
+  startGame() {
+    this.inProgress = true
+    this.currTurn = Game.black
+    this.loadBoard()
+    this.printBoard()
   }
 
   //testing
@@ -81,5 +94,5 @@ class Game {
   }
 }
 
-Game.red = 'r'
+Game.white = 'w'
 Game.black = 'b'
