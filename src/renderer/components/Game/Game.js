@@ -1,6 +1,6 @@
 class Game {
   constructor () {
-    this.inProgress = false
+    this.inProgress = true
     this.winner = null
     this.currentTurn = null
     this.squares = new Array(64).fill.map(square => new Square())
