@@ -113,10 +113,10 @@ export default class Game {
       if ((Math.floor(i / 8) % 2 === 0 && (i % 2) === 0) ||
         (Math.floor(i / 8) % 2 === 1 && (i % 2) === 1)) {
         this.squares[i].isValid = true
-        if (i <= 31) {
+        if (i <= 23) {
           this.squares[i].value = Game.white
         }
-        if (i <= 48) {
+        if (i >= 40) {
           this.squares[i].value = Game.black
         }
       }
@@ -134,9 +134,9 @@ export default class Game {
   printBoard () {
     var i
     for (i = 0; i < 64; i++) {
-      console.log('| ' + this.squares[i].value + ' | ')
+      console.log('square:' + i + ' | ' + 'value' + this.squares[i].value)
       if (i % 8 === 7) {
-        console.log('\n')
+        console.log('ROW END')
       }
     }
   }
