@@ -10,7 +10,9 @@ export default class Game {
 
   // TODO: Finish move
   move (finalIndex, currIndex) {
-    if (this.inProgress && this.isValidMove(finalIndex, currIndex)) {
+    if (this.inProgress &&
+        this.isValidMove(finalIndex, currIndex) &&
+        this.currentTurn === this.squares[currIndex].value) {
       this.squares[finalIndex].value = this.currentTurn
       this.squares[currIndex].value = null
       this.squares[currIndex].selected = false
