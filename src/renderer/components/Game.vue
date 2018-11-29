@@ -1,16 +1,14 @@
 <template>
   <div>
     <!-- TODO: Build build board here (idea: for(each) square in this.game.squares make a div to represent the square) -->
-    here's the app
   </div>
 </template>
 
 <script>
-  import Game from './Game.js'
+  import Game from './Game/Game.js'
 
   export default {
     name: 'game',
-
     data () {
       return {
         // TODO: Should discuss
