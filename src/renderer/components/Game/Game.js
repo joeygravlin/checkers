@@ -134,7 +134,7 @@ export default class Game {
   printBoard () {
     var i
     for (i = 0; i < 64; i++) {
-      console.log('square:' + i + ' | ' + 'value' + this.squares[i].value)
+      console.log('square: ' + i + ' | ' + 'value: ' + this.squares[i].value)
       if (i % 8 === 7) {
         console.log('ROW END')
       }
