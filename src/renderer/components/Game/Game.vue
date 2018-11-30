@@ -5,13 +5,14 @@
 </template>
 
 <script>
-  import Game from './Game/Game.js'
+  import Game from './Game.js'
 
   export default {
     name: 'game',
     data () {
       return {
         // TODO: Should discuss
+        game: null
       }
     },
 
