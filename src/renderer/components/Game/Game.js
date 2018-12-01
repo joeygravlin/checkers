@@ -66,32 +66,14 @@ class Game {
 
   canAttack (finalIndex, currIndex) {
     let result = false
+    let diff = finalIndex - currIndex
 
-    if (Math.abs(finalIndex - currIndex) === 18) {
-      if (this.squares[currIndex].value === Game.white) {
-        if (this.squares[finalIndex - 9].value === Game.black) {
-          result = true
-          this.squares[finalIndex - 9].value = null
-        }
-      } else if (this.squares[currIndex].value === Game.black) {
-        if (this.squares[finalIndex + 9].value === Game.white) {
-          result = true
-          this.squares[finalIndex + 9].value = null
-        }
-      }
-    } else if(Math.abs(finalIndex - currIndex) === 14){
-      if (this.squares[currIndex].value === Game.white) {
-        if (this.squares[finalIndex - 7].value === Game.black) {
-          result = true
-          this.squares[finalIndex - 7].value = null
-        }
-      } else if (this.squares[currIndex].value === Game.black) {
-        if (this.squares[finalIndex + 7].value === Game.white) {
-          result = true
-          this.squares[finalIndex + 7].value = null
-        }
-      }
+    if (this.squares[finalIndex - (diff / 2)].value !== null &&
+      this.squares[finalIndex - (diff / 2)].value !== this.currentTurn) {
+      result = true
+      this.squares[finalIndex - (diff / 2)].value = null
     }
+
     return result
   }
   checkEndGame () {
