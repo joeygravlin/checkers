@@ -1,6 +1,4 @@
-import Square from './Square'
-
-export default class Game {
+class Game {
   constructor () {
     this.inProgress = true
     this.winner = null
@@ -9,89 +7,96 @@ export default class Game {
   }
 
   // TODO: Finish move
-  move (finalIndex, currIndex) {
-    if (this.inProgress &&
-        this.isValidMove(finalIndex, currIndex) &&
-        this.currentTurn === this.squares[currIndex].value) {
+  move(finalIndex, currIndex) {
+    if (this.inProgress && this.isValidMove(finalIndex, currIndex) && this.currentTurn === this.squares[currIndex].value) {
       this.squares[finalIndex].value = this.currentTurn
       this.squares[currIndex].value = null
       this.squares[currIndex].selected = false
 
       this.checkEndGame()
 
-      // NOT SURE WE WANT THIS IN THIS FORM
-      if (this.canAttack(finalIndex)) {
-        this.squares[finalIndex].canAttack = true
-        this.squares[finalIndex].selected = true
-      } else {
-        this.currentTurn = (this.currentTurn === Game.black) ? Game.white : Game.black
-      }
+      this.currentTurn = (this.currentTurn === Game.black) ? Game.white : Game.black
+
+      this.printBoard()
+    } else {
+      console.log('Move not valid!')
     }
   }
 
   // TODO: Finish valid move check
-  isValidMove (finalIndex, currIndex) {
-    var valid = false
+  isValidMove(finalIndex, currIndex) {
+    let valid = false
 
-    // if squares[finalIndex] is empty
-    // AND
-    // if squares[finalIndex] is valid
-    // AND
-    // if the absolute diff between squares[finalIndex] % 8 and squares[currIndex] % 8 is 1 (ie is it moving diagonally)
     if (this.squares[finalIndex].isValid === true &&
-      this.squares[finalIndex].value === null &&
-      Math.abs((finalIndex % 8) - (currIndex % 8)) === 1) {
-      // if players piece is NOT a king
-      if (this.squares[currIndex].isKing === false) {
-        // if player is moving in the right direction (ie if it piece is white is it moving to the next row down (eg to an index in the next (printed) row)
-        // OR
-        // if piece is white is moving to the previous row down (eg to an index in the previous (printed) row))
-        if ((this.squares[currIndex].value === Game.white &&
-          Math.floor(finalIndex / 8) - Math.floor(currIndex / 8) === 1) ||
-          (this.squares[currIndex].value === Game.black &&
-            Math.floor(finalIndex / 8) - Math.floor(currIndex / 8) === -1)) {
+      this.squares[finalIndex].value === null) {
+      // if finalIndex is a valid/playable square AND no piece is there
+      if (this.squares[currIndex].value === Game.white){
+        // if the piece at curr index is white
+        if (Math.floor(finalIndex / 8) - Math.floor(currIndex / 8) === 1 &&
+            Math.abs((finalIndex % 8) - (currIndex % 8)) === 1) {
+          // if the piece is moving down one row AND over one column
+          valid = true
+        } else if (Math.floor(finalIndex / 8) - Math.floor(currIndex / 8) === 2 &&
+                  Math.abs((finalIndex % 8) - (currIndex % 8)) === 2 &&
+                  this.canAttack(finalIndex, currIndex) === true) {
+          // if the player can attack and is moving up
           valid = true
         }
-      } else {
-        valid = true
+      } else if (this.squares[currIndex].value === Game.black){
+        if (Math.floor(finalIndex / 8) - Math.floor(currIndex / 8) === -1 &&
+            Math.abs((finalIndex % 8) - (currIndex % 8)) === 1) {
+          // if the piece is moving up one row AND over one column
+          valid = true
+        } else if (Math.floor(finalIndex / 8) - Math.floor(currIndex / 8) === -2 &&
+                  Math.abs((finalIndex % 8) - (currIndex % 8)) === 2 &&
+                  this.canAttack(finalIndex, currIndex) === true) {
+          valid = true
+        }
+      } else if (this.square[currIndex].isKing === true) {
+        if (Math.abs(Math.floor(finalIndex / 8) - Math.floor(currIndex / 8)) === 1) {
+          valid = true
+        } else if (Math.abs(Math.floor(finalIndex / 8) - Math.floor(currIndex / 8)) === 2 &&
+                  this.canAttack(finalIndex, currIndex) === true) {
+          valid = true
+        }
       }
     }
     return valid
   }
 
-  canAttack (currIndex) {
-    var canAttack = false
+  canAttack (finalIndex, currIndex) {
+    let result = false
 
-    // diag direction Game.white
-    var diagLeft = 7
-    var diagRight = 9
-
-    // diag direction Game.black
-    if (this.currentTurn === Game.black) {
-      diagLeft = -9
-      diagRight = -7
+    if (Math.abs(finalIndex - currIndex) === 18) {
+      if (this.squares[currIndex].value === Game.white) {
+        if (this.squares[finalIndex - 9].value === Game.black) {
+          result = true
+          this.squares[finalIndex - 9].value = null
+        }
+      } else if (this.squares[currIndex].value === Game.black) {
+        if (this.squares[finalIndex + 9].value === Game.white) {
+          result = true
+          this.squares[finalIndex + 9].value = null
+        }
+      }
+    } else if(Math.abs(finalIndex - currIndex) === 14){
+      if (this.squares[currIndex].value === Game.white) {
+        if (this.squares[finalIndex - 7].value === Game.black) {
+          result = true
+          this.squares[finalIndex - 7].value = null
+        }
+      } else if (this.squares[currIndex].value === Game.black) {
+        if (this.squares[finalIndex + 7].value === Game.white) {
+          result = true
+          this.squares[finalIndex + 7].value = null
+        }
+      }
     }
-
-    // if either square in the "forward" direction does not equal the current players turn and is not null
-    // OR
-    // if either square in the "backwards" direction does not equal the current players turn and is not null AND players piece is a king:
-    // --> CAN ATTACK
-    if ((this.squares[currIndex + diagLeft].value !== this.currentTurn && this.squares[currIndex + diagLeft].value !== null) ||
-      (this.squares[currIndex + diagRight].value !== this.currentTurn &&
-      this.squares[currIndex + diagRight].value !== null) ||
-      (this.squares[currIndex].isKing === true &&
-        ((this.squares[currIndex - diagLeft].value !== this.currentTurn &&
-          this.squares[currIndex - diagLeft].value !== null) ||
-          (this.squares[currIndex - diagRight].value !== this.currentTurn &&
-            this.squares[currIndex - diagRight].value !== null)))) {
-      this.canAttack = true
-    }
-
-    return canAttack
+    return result
   }
   checkEndGame () {
-    var whitePieces = 0
-    var blackPieces = 0
+    let whitePieces = 0
+    let blackPieces = 0
 
     this.squares.forEach(s => {
       if (s.value === Game.white) {
@@ -135,12 +140,20 @@ export default class Game {
   // testing
   printBoard () {
     var i
+    var board = ''
     for (i = 0; i < 64; i++) {
-      console.log('square: ' + i + ' | ' + 'value: ' + this.squares[i].value)
+      if(this.squares[i].value === null){
+        board += ' |  '
+      } else {
+        board += ' | ' + this.squares[i].value
+      }
+
       if (i % 8 === 7) {
-        console.log('ROW END')
+        board += ' |\n'
+        board += '----------------------------------\n'
       }
     }
+    console.log(board)
   }
 }
 
