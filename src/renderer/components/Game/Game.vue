@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h1>GAME!</h1>
     <!-- TODO: Build build board here (idea: for(each) square in this.game.squares make a div to represent the square) -->
   </div>
 </template>

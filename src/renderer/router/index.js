@@ -11,6 +11,11 @@ export default new Router({
       component: require('@/components/Game').default
     },
     {
+      path: '/connect',
+      name: 'connect',
+      component: require('@/components/Connect').default
+    },
+    {
       path: '*',
       redirect: '/'
     }
