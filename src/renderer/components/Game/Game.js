@@ -1,4 +1,6 @@
-class Game {
+import Square from './Square'
+
+export default class Game {
   constructor () {
     this.inProgress = true
     this.winner = null
@@ -7,7 +9,7 @@ class Game {
   }
 
   // TODO: Finish move
-  move(currIndex, finalIndex) {
+  move (currIndex, finalIndex) {
     this.getValidMoves(currIndex)
 
     if (this.inProgress && this.currentTurn === this.squares[currIndex].value &&
@@ -44,7 +46,7 @@ class Game {
   }
 
   // TODO: Finish valid move check
-  getValidMoves(currIndex) {
+  getValidMoves (currIndex) {
     let diagLeft = 7
     let diagRight = 9
 
@@ -100,7 +102,7 @@ class Game {
     }
   }
 
-  getAttacks(currIndex) {
+  getAttacks (currIndex) {
     let diagLeft = 14
     let diagRight = 18
 
@@ -170,7 +172,7 @@ class Game {
     }
   }
 
-  checkEndGame() {
+  checkEndGame () {
     let whitePieces = 0
     let blackPieces = 0
 
@@ -189,7 +191,7 @@ class Game {
     }
   }
 
-  loadBoard() {
+  loadBoard () {
     var i
     for (i = 0; i < 64; i++) {
       // setting squares as valid, putting pieces "on" board
@@ -206,7 +208,7 @@ class Game {
     }
   }
 
-  select(currIndex) {
+  select (currIndex) {
     if (this.squares[currIndex].value === this.currentTurn) {
       // reset valid moves and any previously selected sqaures to false
       this.squares.forEach(s => {
@@ -231,7 +233,7 @@ class Game {
     }
   }
 
-  startGame() {
+  startGame () {
     this.inProgress = true
     this.currentTurn = Game.black
     this.loadBoard()
@@ -239,7 +241,7 @@ class Game {
   }
 
   // testing
-  printBoard() {
+  printBoard () {
     var i
     var board = ''
     for (i = 0; i < 64; i++) {

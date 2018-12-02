@@ -1,4 +1,4 @@
-class Square {
+export default class Square {
   constructor () {
     this.value = null
     this.isSelected = false
