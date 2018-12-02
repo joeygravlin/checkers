@@ -1,5 +1,5 @@
 <template>
-  <div class="square" v-bind:class="square.value == 'w' ? 'white' : 'black'"></div>
+  <div class="square" v-bind:class="square.color == 'white' ? 'white' : 'black'"></div>
 </template>
 
 <script>
