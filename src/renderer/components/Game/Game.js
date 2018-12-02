@@ -22,13 +22,18 @@ export default class Game {
         this.squares[currIndex + (diff / 2)].value = null
         this.squares[currIndex + (diff / 2)].canAttack = false
         this.squares[currIndex + (diff / 2)].isKing = false
-        this.squares[currIndex + (diff / 2)].isValidMove = false
         this.validMoves = []
       }
 
+      this.squares[finalIndex].isKing = this.squares[currIndex].isKing
       this.squares[finalIndex].value = this.currentTurn
       this.squares[currIndex].value = null
       this.squares[currIndex].selected = false
+      this.squares[currIndex].canAttack = false
+      this.squares[currIndex].isKing = false
+
+      // king me
+      this.isKing()
 
       this.squares.forEach(s => {
         s.isValidMove = false
@@ -172,6 +177,20 @@ export default class Game {
     }
   }
 
+  isKing () {
+    let i
+    for (i = 0; i < 8; i++) {
+      if (this.squares[i].value === Game.black) {
+        this.squares[i].isKing = true
+      }
+    }
+    for (i = 56; i <= 63; i++) {
+      if (this.squares[i].value === Game.white) {
+        this.squares[i].isKing = true
+      }
+    }
+  }
+
   checkEndGame () {
     let whitePieces = 0
     let blackPieces = 0
@@ -203,6 +222,11 @@ export default class Game {
         }
         if (i >= 40) {
           this.squares[i].value = Game.black
+        }
+        if (i % 2 === 0) {
+          this.squares[i].color = 'white'
+        } else {
+          this.squares[i].color = 'black'
         }
       }
     }

@@ -3,27 +3,30 @@
         <ul>
             <router-link to="/game" activeClass="active" tag="li"><a class="nav-link">Play</a></router-link>
             <router-link to="/connect" activeClass="active" tag="li"><a class="nav-link">Connect</a></router-link>
-            <li>Dark Mode</li>
+            <li @click="enableDarkMode()">Dark Mode</li>
         </ul>
     </div>
 </template>
 
 <script>
 export default {
-  name: 'navbar'
+  name: 'navbar',
+  methods: {
+    enableDarkMode () {}
+  }
 }
 </script>
 
 <style lang="sass" scoped>
 
     #menu
-        background-color: #ffffff
-
         ul
             list-style-type: none
-            margin: 0
+            margin: 0 auto
             padding: 0
             display: flex
+            justify-content: center
+            width: 500px
 
             li
                 padding: 5px
