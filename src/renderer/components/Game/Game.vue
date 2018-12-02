@@ -3,28 +3,28 @@
     <div id="checkerboard">
       <!-- FIXME -->
       <div class="row">
-        <square v-for="square in game.squares.slice(0,7)" v-bind:initialSquare="square"></square>
+        <square v-for="square in game.squares.slice(0,8)" v-bind:initialSquare="square"></square>
       </div>
       <div class="row">
-        <square v-for="square in game.squares.slice(8,15)" v-bind:initialSquare="square"></square>
+        <square v-for="square in game.squares.slice(8,16)" v-bind:initialSquare="square"></square>
       </div>
       <div class="row">
-        <square v-for="square in game.squares.slice(16,23)" v-bind:initialSquare="square"></square>
+        <square v-for="square in game.squares.slice(16,24)" v-bind:initialSquare="square"></square>
       </div>
       <div class="row">
-        <square v-for="square in game.squares.slice(24,31)" v-bind:initialSquare="square"></square>
+        <square v-for="square in game.squares.slice(24,32)" v-bind:initialSquare="square"></square>
       </div>
       <div class="row">
-        <square v-for="square in game.squares.slice(32,39)" v-bind:initialSquare="square"></square>
+        <square v-for="square in game.squares.slice(32,40)" v-bind:initialSquare="square"></square>
       </div>
       <div class="row">
-        <square v-for="square in game.squares.slice(40,47)" v-bind:initialSquare="square"></square>
+        <square v-for="square in game.squares.slice(40,48)" v-bind:initialSquare="square"></square>
       </div>
       <div class="row">
-        <square v-for="square in game.squares.slice(48,55)" v-bind:initialSquare="square"></square>
+        <square v-for="square in game.squares.slice(48,56)" v-bind:initialSquare="square"></square>
       </div>
       <div class="row">
-        <square v-for="square in game.squares.slice(56,63)" v-bind:initialSquare="square"></square>
+        <square v-for="square in game.squares.slice(56,64)" v-bind:initialSquare="square"></square>
       </div>
 
 
