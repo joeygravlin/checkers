@@ -5,89 +5,31 @@
     <div id="checkerboard">
       <!-- FIXME -->
       <div class="row">
-        <square v-for="square in game.squares" v-bind:initialSquare="square"></square>
+        <square v-for="square in game.squares.slice(0,7)" v-bind:initialSquare="square"></square>
+      </div>
+      <div class="row">
+        <square v-for="square in game.squares.slice(8,15)" v-bind:initialSquare="square"></square>
+      </div>
+      <div class="row">
+        <square v-for="square in game.squares.slice(16,23)" v-bind:initialSquare="square"></square>
+      </div>
+      <div class="row">
+        <square v-for="square in game.squares.slice(24,31)" v-bind:initialSquare="square"></square>
+      </div>
+      <div class="row">
+        <square v-for="square in game.squares.slice(32,39)" v-bind:initialSquare="square"></square>
+      </div>
+      <div class="row">
+        <square v-for="square in game.squares.slice(40,47)" v-bind:initialSquare="square"></square>
+      </div>
+      <div class="row">
+        <square v-for="square in game.squares.slice(48,55)" v-bind:initialSquare="square"></square>
+      </div>
+      <div class="row">
+        <square v-for="square in game.squares.slice(56,63)" v-bind:initialSquare="square"></square>
       </div>
 
-      <!-- <div class="row">
-        <div class="square white"></div>
-        <div class="square black"></div>
-        <div class="square white"></div>
-        <div class="square black"></div>
-        <div class="square white"></div>
-        <div class="square black"></div>
-        <div class="square white"></div>
-        <div class="square black"></div>
-      </div>
-      <div class="row">
-        <div class="square black"></div>
-        <div class="square white"></div>
-        <div class="square black"></div>
-        <div class="square white"></div>
-        <div class="square black"></div>
-        <div class="square white"></div>
-        <div class="square black"></div>
-        <div class="square white"></div>
-      </div>
-      <div class="row">
-        <div class="square white"></div>
-        <div class="square black"></div>
-        <div class="square white"></div>
-        <div class="square black"></div>
-        <div class="square white"></div>
-        <div class="square black"></div>
-        <div class="square white"></div>
-        <div class="square black"></div>
-      </div>
-      <div class="row">
-        <div class="square black"></div>
-        <div class="square white"></div>
-        <div class="square black"></div>
-        <div class="square white"></div>
-        <div class="square black"></div>
-        <div class="square white"></div>
-        <div class="square black"></div>
-        <div class="square white"></div>
-      </div>
-      <div class="row">
-        <div class="square white"></div>
-        <div class="square black"></div>
-        <div class="square white"></div>
-        <div class="square black"></div>
-        <div class="square white"></div>
-        <div class="square black"></div>
-        <div class="square white"></div>
-        <div class="square black"></div>
-      </div>
-      <div class="row">
-        <div class="square black"></div>
-        <div class="square white"></div>
-        <div class="square black"></div>
-        <div class="square white"></div>
-        <div class="square black"></div>
-        <div class="square white"></div>
-        <div class="square black"></div>
-        <div class="square white"></div>
-      </div>
-      <div class="row">
-        <div class="square white"></div>
-        <div class="square black"></div>
-        <div class="square white"></div>
-        <div class="square black"></div>
-        <div class="square white"></div>
-        <div class="square black"></div>
-        <div class="square white"></div>
-        <div class="square black"></div>
-      </div>
-      <div class="row">
-        <div class="square black"></div>
-        <div class="square white"></div>
-        <div class="square black"></div>
-        <div class="square white"></div>
-        <div class="square black"></div>
-        <div class="square white"></div>
-        <div class="square black"></div>
-        <div class="square white"></div>
-      </div> -->
+
     </div>
   </div>
 </template>
