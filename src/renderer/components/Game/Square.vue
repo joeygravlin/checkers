@@ -7,13 +7,23 @@
 
   export default {
     name: 'square',
+
+    props: [
+      'initialSquare'
+    ],
+
     data () {
       return {
-        square: null
+        square: this.initialSquare
       }
     },
+
     methods: {
       // TODO
+    },
+
+    mounted () {
+      console.log(this.square)
     }
   }
 </script>

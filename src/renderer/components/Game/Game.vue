@@ -5,7 +5,7 @@
     <div id="checkerboard">
       <!-- FIXME -->
       <div class="row">
-        <square v-for="square in game.squares"></square>
+        <square v-for="square in game.squares" v-bind:initialSquare="square"></square>
       </div>
 
       <!-- <div class="row">
