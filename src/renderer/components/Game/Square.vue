@@ -1,5 +1,8 @@
 <template>
-  <div class="square" v-bind:class="square.color == 'white' ? 'white' : 'black'"></div>
+  <div  class="square"
+        v-bind:class="square.color == 'white' ? 'white' : 'black'"
+        v-on:click="selectSquare"
+        ></div>
 </template>
 
 <script>
@@ -20,6 +23,9 @@
 
     methods: {
       // TODO
+      selectSquare () {
+        console.log('Square clicked!')
+      }
     },
 
     mounted () {
