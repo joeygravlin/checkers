@@ -1,11 +1,9 @@
 <template>
-  <div>
-    <h1>GAME!</h1>
-    <!-- TODO: Build build board here (idea: for(each) square in this.game.squares make a div to represent the square) -->
+  <div id="checkerboardContainer">
     <div id="checkerboard">
       <div class="row">
         <div class="square white"></div>
-        <div class="square black"></div>
+        <div class="square black "></div>
         <div class="square white"></div>
         <div class="square black"></div>
         <div class="square white"></div>
@@ -115,25 +113,58 @@
 
 <style lang="sass" scoped>
 
-  #checkerboard
-    width: 480px
-    height: 480px
-    border: 1px solid #000000
+    #checkerboardContainer
+        display: flex
+        justify-content: center
+        margin-top: 21px
 
-    .row
-      height: 60px
-      width: 480px
-      display: flex
-      flex-direction: row
+        #checkerboard
+            width: 479.8px
+            height: 479.8px
+            border: 1px solid #000000
 
-      .square
-        height: 60px
-        width: 60px
+            .row
+                height: 60px
+                width: 480px
+                display: flex
+                flex-direction: row
 
-        &.white
-            background: #ffffff
+                .square
+                    height: 60px
+                    width: 60px
+                    position: relative
 
-        &.black
-            background: #000000
+                    &.white
+                        background: #ffffff
 
+                        &.hasWhitePiece
+                            &:before
+                                content: ''
+                                border: 1px solid #000000
+                                width: 40px
+                                height: 40px
+                                position: absolute
+                                border-radius: 21px
+                                top: 9px
+                                left: 9px
+                                background-color: #ffffff
+                                box-shadow: 2px 2px 2px #000000
+                                cursor: pointer
+
+                        &.hasBlackPiece
+                            &:before
+                                content: ''
+                                border: 1px solid #000000
+                                width: 40px
+                                height: 40px
+                                position: absolute
+                                border-radius: 21px
+                                top: 9px
+                                left: 9px
+                                background-color: #000000
+                                box-shadow: 2px 2px 2px #000000
+                                cursor: pointer
+
+                    &.black
+                        background: #000000
 </style>
