@@ -223,11 +223,9 @@ export default class Game {
         if (i >= 40) {
           this.squares[i].value = Game.black
         }
-        if (i % 2 === 0) {
-          this.squares[i].color = 'white'
-        } else {
-          this.squares[i].color = 'black'
-        }
+        this.squares[i].color = 'white'
+      } else {
+        this.squares[i].color = 'black'
       }
     }
   }
