@@ -2,7 +2,9 @@
   <div  class="square"
         v-bind:class="[ square.color == 'white' ? 'white' : 'black',
                         square.value == 'w' ? 'hasWhitePiece' : square.value == 'b' ? 'hasBlackPiece' : '',
-                        square.isKing ? 'isKing' : '' ]"
+                        square.isKing ? 'isKing' : '',
+                        square.isValidMove ? 'isValidMove' : '',
+                        square.isSelected ? 'isSelected' : '' ]"
         v-on:click="selectSquare"
         >
           <p v-text="square.isKing ? '♔' : ''"></p>
@@ -28,7 +30,7 @@
     methods: {
       // TODO
       selectSquare () {
-        console.log(this.square.index)
+        this.square.isSelected = true
       }
     },
 
@@ -93,5 +95,11 @@
         p
             user-select: none
             cursor: pointer
+
+      &.isValidMove
+        background-color: blue
+
+      &.isSelected
+        background-color: blue
 
 </style>
