@@ -1,5 +1,6 @@
 export default class Square {
   constructor () {
+    this.index = null
     this.value = null
     this.color = null
     this.isSelected = false

@@ -213,6 +213,7 @@ export default class Game {
   loadBoard () {
     var i
     for (i = 0; i < 64; i++) {
+      this.squares[i].index = i
       // setting squares as valid, putting pieces "on" board
       if ((Math.floor(i / 8) % 2 === 0 && (i % 2) === 0) ||
         (Math.floor(i / 8) % 2 === 1 && (i % 2) === 1)) {
