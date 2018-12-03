@@ -3,28 +3,44 @@
     <div id="checkerboard">
       <!-- FIXME -->
       <div class="row">
-        <square v-for="square in game.squares.slice(0,8)" v-bind:initialSquare="square"></square>
+        <square v-for="square in game.squares.slice(0,8)"
+                v-bind:initialSquare="square"
+                @select-square="selectSquare"></square>
       </div>
       <div class="row">
-        <square v-for="square in game.squares.slice(8,16)" v-bind:initialSquare="square"></square>
+        <square v-for="square in game.squares.slice(8,16)"
+                v-bind:initialSquare="square"
+                @select-square="selectSquare"></square>
       </div>
       <div class="row">
-        <square v-for="square in game.squares.slice(16,24)" v-bind:initialSquare="square"></square>
+        <square v-for="square in game.squares.slice(16,24)"
+                v-bind:initialSquare="square"
+                @select-square="selectSquare"></square>
       </div>
       <div class="row">
-        <square v-for="square in game.squares.slice(24,32)" v-bind:initialSquare="square"></square>
+        <square v-for="square in game.squares.slice(24,32)"
+                v-bind:initialSquare="square"
+                @select-square="selectSquare"></square>
       </div>
       <div class="row">
-        <square v-for="square in game.squares.slice(32,40)" v-bind:initialSquare="square"></square>
+        <square v-for="square in game.squares.slice(32,40)"
+                v-bind:initialSquare="square"
+                @select-square="selectSquare"></square>
       </div>
       <div class="row">
-        <square v-for="square in game.squares.slice(40,48)" v-bind:initialSquare="square"></square>
+        <square v-for="square in game.squares.slice(40,48)"
+                v-bind:initialSquare="square"
+                @select-square="selectSquare"></square>
       </div>
       <div class="row">
-        <square v-for="square in game.squares.slice(48,56)" v-bind:initialSquare="square"></square>
+        <square v-for="square in game.squares.slice(48,56)"
+                v-bind:initialSquare="square"
+                @select-square="selectSquare"></square>
       </div>
       <div class="row">
-        <square v-for="square in game.squares.slice(56,64)" v-bind:initialSquare="square"></square>
+        <square v-for="square in game.squares.slice(56,64)"
+                v-bind:initialSquare="square"
+                @select-square="selectSquare"></square>
       </div>
 
 
@@ -46,7 +62,8 @@
     data () {
       return {
         // TODO: Should discuss
-        game: null
+        game: null,
+        moveStack: []
       }
     },
 
@@ -60,6 +77,10 @@
 
       clearBoard () {
         // TODO: Necessary?
+      },
+      selectSquare (event) {
+        console.log(event)
+        console.log(this.game.select(event.index))
       }
     },
 

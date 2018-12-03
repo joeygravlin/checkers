@@ -27,7 +27,8 @@
     methods: {
       // TODO
       selectSquare () {
-        console.log('Square clicked!')
+        console.log(`Square #${this.square.index} clicked!`)
+        this.$emit('select-square', this.square)
       }
     },
 
