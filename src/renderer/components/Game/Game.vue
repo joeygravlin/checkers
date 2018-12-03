@@ -28,11 +28,11 @@
       return {
         // TODO: Should discuss
         game: null,
-        moveStack: [],
         leftSlice: [0, 8, 16, 24, 32, 40, 48, 56],
         rightSlice: [8, 16, 24, 32, 40, 48, 56, 64],
         currentIndex: null,
-        finalIndex: null
+        finalIndex: null,
+        firstClick: null
       }
     },
 
@@ -50,9 +50,17 @@
       selectSquare (event) {
         console.log(event)
         console.log(this.game.select(event.index))
+
+        if (!this.firstClick) {
+          this.currentIndex = event.index
+          this.firstClick = true
+        } else {
+          this.finalIndex = event.index
+          this.firstClick = false
+        }
       },
       move (event) {
-        console.log(this.game.move(41, 32))
+        console.log(this.game.move(this.currentIndex, this.finalIndex))
       }
     },
 
