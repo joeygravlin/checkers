@@ -27,7 +27,7 @@
       return {
         // TODO: Should discuss
         game: null,
-        moveStack: null,
+        currentSquareIndex: null,
         leftSlice: [0, 8, 16, 24, 32, 40, 48, 56],
         rightSlice: [8, 16, 24, 32, 40, 48, 56, 64]
       }
@@ -45,17 +45,17 @@
         // TODO: Necessary?
       },
       selectSquare (event) {
-        if (this.moveStack !== null) {
-          if (this.game.squares[this.moveStack].validMoves.includes(event.index)) {
-            this.game.move(this.moveStack, event.index)
+        if (this.currentSquareIndex !== null) {
+          if (this.game.squares[this.currentSquareIndex].validMoves.includes(event.index)) {
+            this.game.move(this.currentSquareIndex, event.index)
           }
-          this.moveStack = null
+          this.currentSquareIndex = null
         } else if (event.value === this.game.currentTurn) {
           this.game.select(event.index)
-          this.moveStack = event.index
+          this.currentSquareIndex = event.index
         } else {
           this.game.unselect()
-          this.moveStack = null
+          this.currentSquareIndex = null
         }
       }
     },

@@ -276,7 +276,7 @@ export default class Game {
     this.squares.forEach(s => {
       s.isSelected = false
       s.isValidMove = false
-      s.validMoves = false
+      s.validMoves = []
     })
   }
 
