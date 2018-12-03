@@ -6,6 +6,7 @@
                     :key=square.index
                     v-bind:initialSquare="square"
                     @select-square="selectSquare"
+                    @move="move"
             ></square>
         </div>
     </div>
@@ -29,7 +30,9 @@
         game: null,
         moveStack: [],
         leftSlice: [0, 8, 16, 24, 32, 40, 48, 56],
-        rightSlice: [8, 16, 24, 32, 40, 48, 56, 64]
+        rightSlice: [8, 16, 24, 32, 40, 48, 56, 64],
+        currentIndex: null,
+        finalIndex: null
       }
     },
 
@@ -47,6 +50,9 @@
       selectSquare (event) {
         console.log(event)
         console.log(this.game.select(event.index))
+      },
+      move (event) {
+        console.log(this.game.move(41, 32))
       }
     },
 

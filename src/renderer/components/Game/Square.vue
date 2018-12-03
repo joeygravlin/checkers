@@ -23,7 +23,8 @@
 
     data () {
       return {
-        square: this.initialSquare
+        square: this.initialSquare,
+        squareSelected: false
       }
     },
 
@@ -32,6 +33,10 @@
       selectSquare () {
         console.log(`Square #${this.square.index} clicked!`)
         this.$emit('select-square', this.square)
+        if (this.squareSelected) {
+          this.$emit('move', this.square)
+        }
+        this.squareSelected = true
       }
     },
 
@@ -98,9 +103,9 @@
             cursor: pointer
 
       &.isValidMove
-        background-color: blue
+        background-color: #dadada
 
       &.isSelected
-        background-color: blue
+        background-color: #dadada
 
 </style>
