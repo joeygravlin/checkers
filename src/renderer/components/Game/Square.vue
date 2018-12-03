@@ -1,8 +1,11 @@
 <template>
   <div  class="square"
-        v-bind:class="square.color == 'white' ? 'white' : 'black'"
+        v-bind:class="[ square.color == 'white' ? 'white' : 'black',
+                        square.value == 'w' ? 'hasWhitePiece' : square.value == 'b' ? 'hasBlackPiece' : '' ]"
         v-on:click="selectSquare"
-        ></div>
+        >
+          <p v-text="square.isKing ? '♔' : ''"></p>
+  </div>
 </template>
 
 <script>
@@ -40,6 +43,14 @@
       height: 60px
       width: 60px
       position: relative
+      display: flex;
+      align-items: center;
+      justify-content: center
+
+      p
+        margin: 0
+        font-size: 2em
+        z-index: 999
 
       &.white
           background: #ffffff
@@ -59,6 +70,8 @@
                   cursor: pointer
 
           &.hasBlackPiece
+              color: white
+
               &:before
                   content: ''
                   border: 1px solid #000000
