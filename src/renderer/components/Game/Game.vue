@@ -1,33 +1,9 @@
 <template>
   <div id="checkerboardContainer">
     <div id="checkerboard">
-      <!-- FIXME -->
-      <div class="row">
-        <square v-for="square in game.squares.slice(0,8)" v-bind:initialSquare="square"></square>
-      </div>
-      <div class="row">
-        <square v-for="square in game.squares.slice(8,16)" v-bind:initialSquare="square"></square>
-      </div>
-      <div class="row">
-        <square v-for="square in game.squares.slice(16,24)" v-bind:initialSquare="square"></square>
-      </div>
-      <div class="row">
-        <square v-for="square in game.squares.slice(24,32)" v-bind:initialSquare="square"></square>
-      </div>
-      <div class="row">
-        <square v-for="square in game.squares.slice(32,40)" v-bind:initialSquare="square"></square>
-      </div>
-      <div class="row">
-        <square v-for="square in game.squares.slice(40,48)" v-bind:initialSquare="square"></square>
-      </div>
-      <div class="row">
-        <square v-for="square in game.squares.slice(48,56)" v-bind:initialSquare="square"></square>
-      </div>
-      <div class="row">
-        <square v-for="square in game.squares.slice(56,64)" v-bind:initialSquare="square"></square>
-      </div>
-
-
+        <div class="row" v-for="x in 8" :key=x>
+            <square v-for="square in game.squares.slice(leftSlice[x-1],rightSlice[x-1])" v-bind:initialSquare="square" :key=square.index></square>
+        </div>
     </div>
   </div>
 </template>
@@ -46,7 +22,9 @@
     data () {
       return {
         // TODO: Should discuss
-        game: null
+        game: null,
+        leftSlice: [0, 8, 16, 24, 32, 40, 48, 56],
+        rightSlice: [8, 16, 24, 32, 40, 48, 56, 64]
       }
     },
 

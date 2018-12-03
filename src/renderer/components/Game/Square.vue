@@ -1,7 +1,8 @@
 <template>
   <div  class="square"
         v-bind:class="[ square.color == 'white' ? 'white' : 'black',
-                        square.value == 'w' ? 'hasWhitePiece' : square.value == 'b' ? 'hasBlackPiece' : '' ]"
+                        square.value == 'w' ? 'hasWhitePiece' : square.value == 'b' ? 'hasBlackPiece' : '',
+                        square.isKing ? 'isKing' : '' ]"
         v-on:click="selectSquare"
         >
           <p v-text="square.isKing ? '♔' : ''"></p>
@@ -27,7 +28,7 @@
     methods: {
       // TODO
       selectSquare () {
-        console.log('Square clicked!')
+        console.log(this.square.index)
       }
     },
 
@@ -87,5 +88,10 @@
 
       &.black
           background: #000000
+
+      &.isKing
+        p
+            user-select: none
+            cursor: pointer
 
 </style>
