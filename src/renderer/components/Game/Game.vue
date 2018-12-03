@@ -2,7 +2,11 @@
   <div id="checkerboardContainer">
     <div id="checkerboard">
         <div class="row" v-for="x in 8" :key=x>
-            <square v-for="square in game.squares.slice(leftSlice[x-1],rightSlice[x-1])" v-bind:initialSquare="square" :key=square.index></square>
+            <square v-for="square in game.squares.slice(leftSlice[x-1],rightSlice[x-1])"
+                    :key=square.index
+                    v-bind:initialSquare="square"
+                    @select-square="selectSquare"
+            ></square>
         </div>
     </div>
   </div>
@@ -23,6 +27,7 @@
       return {
         // TODO: Should discuss
         game: null,
+        moveStack: [],
         leftSlice: [0, 8, 16, 24, 32, 40, 48, 56],
         rightSlice: [8, 16, 24, 32, 40, 48, 56, 64]
       }
@@ -38,6 +43,10 @@
 
       clearBoard () {
         // TODO: Necessary?
+      },
+      selectSquare (event) {
+        console.log(event)
+        console.log(this.game.select(event.index))
       }
     },
 
