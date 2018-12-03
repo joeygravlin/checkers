@@ -27,7 +27,7 @@
       return {
         // TODO: Should discuss
         game: null,
-        moveStack: [],
+        moveStack: null,
         leftSlice: [0, 8, 16, 24, 32, 40, 48, 56],
         rightSlice: [8, 16, 24, 32, 40, 48, 56, 64]
       }
@@ -45,8 +45,18 @@
         // TODO: Necessary?
       },
       selectSquare (event) {
-        console.log(event)
-        console.log(this.game.select(event.index))
+        if (this.moveStack !== null) {
+          if (this.game.squares[this.moveStack].validMoves.includes(event.index)) {
+            this.game.move(this.moveStack, event.index)
+          }
+          this.moveStack = null
+        } else if (event.value === this.game.currentTurn) {
+          this.game.select(event.index)
+          this.moveStack = event.index
+        } else {
+          this.game.unselect()
+          this.moveStack = null
+        }
       }
     },
 

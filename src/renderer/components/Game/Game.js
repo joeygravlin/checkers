@@ -69,39 +69,47 @@ export default class Game {
       if (this.squares[currIndex].isKing) {
         // if that currIndex - diagLeft is also 1 rows back, and 1 cols to the left
         // needed for edge detection of the 2d representation of the board
-        if (Math.abs(Math.floor((currIndex - diagLeft) / 8) - Math.floor(currIndex / 8)) === 1 &&
-          Math.abs(((currIndex - diagLeft) % 8) - (currIndex % 8)) === 1) {
-          // if the destination square is alse empty
-          if (this.squares[currIndex - diagLeft].value === null) {
-            this.squares[currIndex].validMoves.push(currIndex - diagLeft)
+        if ((currIndex - diagLeft) >= 0 && (currIndex - diagLeft) < 64) {
+          if (Math.abs(Math.floor((currIndex - diagLeft) / 8) - Math.floor(currIndex / 8)) === 1 &&
+            Math.abs(((currIndex - diagLeft) % 8) - (currIndex % 8)) === 1) {
+            // if the destination square is alse empty
+            if (this.squares[currIndex - diagLeft].value === null) {
+              this.squares[currIndex].validMoves.push(currIndex - diagLeft)
+            }
           }
         }
         // if that currIndex - diagRight is also 1 rows back, and 1 cols to the left
         // needed for edge detection of the 2d representation of the board
-        if (Math.abs(Math.floor((currIndex - diagRight) / 8) - Math.floor(currIndex / 8)) === 1 &&
-          Math.abs(((currIndex - diagRight) % 8) - (currIndex % 8)) === 1) {
-          // if the destination square is alse empty
-          if (this.squares[currIndex - diagRight].value === null) {
-            this.squares[currIndex].validMoves.push(currIndex - diagRight)
+        if ((currIndex - diagRight) >= 0 && (currIndex - diagRight) < 64) {
+          if (Math.abs(Math.floor((currIndex - diagRight) / 8) - Math.floor(currIndex / 8)) === 1 &&
+            Math.abs(((currIndex - diagRight) % 8) - (currIndex % 8)) === 1) {
+            // if the destination square is alse empty
+            if (this.squares[currIndex - diagRight].value === null) {
+              this.squares[currIndex].validMoves.push(currIndex - diagRight)
+            }
           }
         }
       }
       // if that currIndex + diagLeft is also 1 rows back, and 1 cols to the left
       // needed for edge detection of the 2d representation of the board
-      if (Math.abs(Math.floor((currIndex + diagLeft) / 8) - Math.floor(currIndex / 8)) === 1 &&
-        Math.abs(((currIndex + diagLeft) % 8) - (currIndex % 8)) === 1) {
-        // if the destination square is alse empty
-        if (this.squares[currIndex + diagLeft].value === null) {
-          this.squares[currIndex].validMoves.push(currIndex + diagLeft)
+      if ((currIndex + diagLeft) >= 0 && (currIndex + diagLeft) < 64) {
+        if (Math.abs(Math.floor((currIndex + diagLeft) / 8) - Math.floor(currIndex / 8)) === 1 &&
+          Math.abs(((currIndex + diagLeft) % 8) - (currIndex % 8)) === 1) {
+          // if the destination square is alse empty
+          if (this.squares[currIndex + diagLeft].value === null) {
+            this.squares[currIndex].validMoves.push(currIndex + diagLeft)
+          }
         }
       }
       // if that currIndex + diagRight is also 1 rows back, and 1 cols to the left
       // needed for edge detection of the 2d representation of the board
-      if (Math.abs(Math.floor((currIndex + diagRight) / 8) - Math.floor(currIndex / 8)) === 1 &&
-        Math.abs(((currIndex + diagRight) % 8) - (currIndex % 8)) === 1) {
-        // if the destination square is alse empty
-        if (this.squares[currIndex + diagRight].value === null) {
-          this.squares[currIndex].validMoves.push(currIndex + diagRight)
+      if ((currIndex + diagRight) >= 0 && (currIndex + diagRight) < 64) {
+        if (Math.abs(Math.floor((currIndex + diagRight) / 8) - Math.floor(currIndex / 8)) === 1 &&
+          Math.abs(((currIndex + diagRight) % 8) - (currIndex % 8)) === 1) {
+          // if the destination square is alse empty
+          if (this.squares[currIndex + diagRight].value === null) {
+            this.squares[currIndex].validMoves.push(currIndex + diagRight)
+          }
         }
       }
     }
@@ -118,60 +126,68 @@ export default class Game {
 
     if (this.squares[currIndex].isKing) {
       // if a opponent piece is adjacent(left) in the reverse direction
-      if (this.squares[currIndex - (diagLeft / 2)].value !== null &&
-        this.squares[currIndex - (diagLeft / 2)].value !== this.squares[currIndex].value) {
-        // if that currIndex - diagLeft is also 2 rows back, and 2 cols to the left
-        // needed for edge detection of the 2d representation of the board
-        if (Math.abs(Math.floor((currIndex - diagLeft) / 8) - Math.floor(currIndex / 8)) === 2 &&
-          Math.abs(((currIndex - diagLeft) % 8) - (currIndex % 8)) === 2) {
-          // if the destination square is alse empty
-          if (this.squares[currIndex - diagLeft].value === null) {
-            this.squares[currIndex].validMoves.push(currIndex - diagLeft)
-            this.squares[currIndex].canAttack = true
+      if ((currIndex - diagLeft) >= 0 && (currIndex - diagLeft) < 64) {
+        if (this.squares[currIndex - (diagLeft / 2)].value !== null &&
+          this.squares[currIndex - (diagLeft / 2)].value !== this.squares[currIndex].value) {
+          // if that currIndex - diagLeft is also 2 rows back, and 2 cols to the left
+          // needed for edge detection of the 2d representation of the board
+          if (Math.abs(Math.floor((currIndex - diagLeft) / 8) - Math.floor(currIndex / 8)) === 2 &&
+            Math.abs(((currIndex - diagLeft) % 8) - (currIndex % 8)) === 2) {
+            // if the destination square is alse empty
+            if (this.squares[currIndex - diagLeft].value === null) {
+              this.squares[currIndex].validMoves.push(currIndex - diagLeft)
+              this.squares[currIndex].canAttack = true
+            }
           }
         }
       }
       // if a opponent piece is adjacent(right) in the forward direction
-      if (this.squares[currIndex - (diagRight / 2)].value !== null &&
-        this.squares[currIndex - (diagRight / 2)].value !== this.squares[currIndex].value) {
-        // if that currIndex - diagRight is also 2 rows back, and 2 cols to the right
-        // needed for edge detection of the 2d representation of the board
-        if (Math.abs(Math.floor((currIndex - diagRight) / 8) - Math.floor(currIndex / 8)) === 2 &&
-          Math.abs(((currIndex - diagRight) % 8) - (currIndex % 8)) === 2) {
-          // if the destination square is also empty
-          if (this.squares[currIndex - diagRight].value === null) {
-            this.squares[currIndex].validMoves.push(currIndex - diagRight)
-            this.squares[currIndex].canAttack = true
+      if ((currIndex - diagRight) >= 0 && (currIndex - diagRight) < 64) {
+        if (this.squares[currIndex - (diagRight / 2)].value !== null &&
+          this.squares[currIndex - (diagRight / 2)].value !== this.squares[currIndex].value) {
+          // if that currIndex - diagRight is also 2 rows back, and 2 cols to the right
+          // needed for edge detection of the 2d representation of the board
+          if (Math.abs(Math.floor((currIndex - diagRight) / 8) - Math.floor(currIndex / 8)) === 2 &&
+            Math.abs(((currIndex - diagRight) % 8) - (currIndex % 8)) === 2) {
+            // if the destination square is also empty
+            if (this.squares[currIndex - diagRight].value === null) {
+              this.squares[currIndex].validMoves.push(currIndex - diagRight)
+              this.squares[currIndex].canAttack = true
+            }
           }
         }
       }
     }
 
     // if a opponent piece is adjacent(left) in the forward direction
-    if (this.squares[currIndex + (diagLeft / 2)].value !== null &&
-      this.squares[currIndex + (diagLeft / 2)].value !== this.squares[currIndex].value) {
-      // if that currIndex + diagLeft is also 2 rows up, and 2 cols to the left
-      // needed for edge detection of the 2d representation of the board
-      if (Math.abs(Math.floor((currIndex + diagLeft) / 8) - Math.floor(currIndex / 8)) === 2 &&
-        Math.abs(((currIndex + diagLeft) % 8) - (currIndex % 8)) === 2) {
-        // if the destination square is also empty
-        if (this.squares[currIndex + diagLeft].value === null) {
-          this.squares[currIndex].validMoves.push(currIndex + diagLeft)
-          this.squares[currIndex].canAttack = true
+    if ((currIndex + diagLeft) >= 0 && (currIndex + diagLeft) < 64) {
+      if (this.squares[currIndex + (diagLeft / 2)].value !== null &&
+        this.squares[currIndex + (diagLeft / 2)].value !== this.squares[currIndex].value) {
+        // if that currIndex + diagLeft is also 2 rows up, and 2 cols to the left
+        // needed for edge detection of the 2d representation of the board
+        if (Math.abs(Math.floor((currIndex + diagLeft) / 8) - Math.floor(currIndex / 8)) === 2 &&
+          Math.abs(((currIndex + diagLeft) % 8) - (currIndex % 8)) === 2) {
+          // if the destination square is also empty
+          if (this.squares[currIndex + diagLeft].value === null) {
+            this.squares[currIndex].validMoves.push(currIndex + diagLeft)
+            this.squares[currIndex].canAttack = true
+          }
         }
       }
     }
     // if a opponent piece is adjacent(right) in the forward direction
-    if (this.squares[currIndex + (diagRight / 2)].value !== null &&
-      this.squares[currIndex + (diagRight / 2)].value !== this.squares[currIndex].value) {
-      // if that currIndex + diagRight is also 2 rows up, and 2 cols to the right
-      // needed for edge detection of the 2d representation of the board
-      if (Math.abs(Math.floor((currIndex + diagRight) / 8) - Math.floor(currIndex / 8)) === 2 &&
-        Math.abs(((currIndex + diagRight) % 8) - (currIndex % 8)) === 2) {
-        // if the destination, square is also empty
-        if (this.squares[currIndex + diagRight].value === null) {
-          this.squares[currIndex].validMoves.push(currIndex + diagRight)
-          this.squares[currIndex].canAttack = true
+    if ((currIndex + diagRight) >= 0 && (currIndex + diagRight) < 64) {
+      if (this.squares[currIndex + (diagRight / 2)].value !== null &&
+        this.squares[currIndex + (diagRight / 2)].value !== this.squares[currIndex].value) {
+        // if that currIndex + diagRight is also 2 rows up, and 2 cols to the right
+        // needed for edge detection of the 2d representation of the board
+        if (Math.abs(Math.floor((currIndex + diagRight) / 8) - Math.floor(currIndex / 8)) === 2 &&
+          Math.abs(((currIndex + diagRight) % 8) - (currIndex % 8)) === 2) {
+          // if the destination, square is also empty
+          if (this.squares[currIndex + diagRight].value === null) {
+            this.squares[currIndex].validMoves.push(currIndex + diagRight)
+            this.squares[currIndex].canAttack = true
+          }
         }
       }
     }
@@ -254,6 +270,14 @@ export default class Game {
     } else {
       console.log('Invalid selection!')
     }
+  }
+
+  unselect () {
+    this.squares.forEach(s => {
+      s.isSelected = false
+      s.isValidMove = false
+      s.validMoves = false
+    })
   }
 
   startGame () {
