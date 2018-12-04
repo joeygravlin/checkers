@@ -41,12 +41,6 @@
       ])
     },
 
-    watch: {
-      game: (oldGame, newGame) => {
-        console.log('Watch yo self!')
-      }
-    },
-
     methods: {
       clearBoard () {
         // TODO: Necessary?

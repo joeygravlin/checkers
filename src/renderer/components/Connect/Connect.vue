@@ -41,8 +41,6 @@ export default {
 
         socket.connect(this.port, this.host, () => {
           console.log(`Connected to ${this.host}:${this.port}`)
-          // send the board
-          // socket.write(JSON.stringify(this.game))
         })
 
         this.$store.commit('CONNECT', socket)
