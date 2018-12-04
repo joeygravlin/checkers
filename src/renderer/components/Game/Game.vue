@@ -2,7 +2,7 @@
   <div id="checkerboardContainer">
     <div id="checkerboard">
       <div class="row" v-for="(n, x) in 8" :key=x>
-        <square v-for="square in game.squares.slice((x*8),(x*8)+8)"
+        <square v-for="square in gameAlias.squares.slice((x*8),(x*8)+8)"
                 :key=square.index
                 v-bind:initialSquare="square"
                 @select-square="selectSquare"
@@ -15,6 +15,9 @@
 <script>
   import Game from './Game.js'
   import Square from './Square.vue'
+
+  import {mapGetters} from 'vuex';
+  // import {mapState} from 'vuex';
 
   export default {
     name: 'game',
@@ -29,6 +32,15 @@
         game: null,
         currentSquareIndex: null
       }
+    },
+
+    computed: {
+      // localComputed () { /* ... */ },
+      // mix this into the outer object with the object spread operator
+      ...mapGetters({
+        clientSocket: state => state.clientSocket,
+        gameAlias: 'game'
+      })
     },
 
     methods: {
@@ -69,6 +81,9 @@
       // Init the game on component creation for now...
       // Later, we will init on opponent connect via network.
       this.start()
+      console.log('Pre "INIT_GAME')
+      this.$store.commit('INIT_GAME')
+      console.log(`gameAlias: ${this.gameAlias}`)
     }
   }
 </script>
