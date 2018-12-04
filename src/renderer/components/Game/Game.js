@@ -306,7 +306,7 @@ export default class Game {
         board += '-----------------------------------\n'
       }
     }
-    console.log(board)
+    //console.log(board)
   }
 }
 

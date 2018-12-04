@@ -1,5 +1,8 @@
 <template>
-  <h1 @click="connect">Connect to an opponent Player!</h1>
+  <div>
+    <h1>Connect to an opponent Player!</h1>
+    <button @click="connect">Connect</button>
+  </div>
 </template>
 
 <script>
@@ -10,26 +13,18 @@ export default {
   data () {
       return {
           HOST: '127.0.0.1',
-          PORT: 3000,
-          client: null
+          PORT: 3000
       }
   },
   methods: {
       connect () {
-          const net = require('net')
-          const client = new net.Socket()
-          this.client = client
+        const net = require('net')
+        const client = new net.Socket()
 
-          client.connect(this.PORT, this.HOST, () => {
-            console.log('CONNECTED TO: ' + this.HOST + ':' + this.PORT)
-            client.write(Game.game)
+        client.connect(this.PORT, this.HOST, () => {
+          console.log('CONNECTED TO: ' + this.HOST + ':' + this.PORT)
+          client.write(Game.game)
         })
-
-        client.on('data', (data) => {
-            console.log('DATA: ' + data)
-        })
-
-        client.on('close', () => console.log('Connection closed'))
       }
   }
 }

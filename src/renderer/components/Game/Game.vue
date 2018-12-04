@@ -15,6 +15,7 @@
 <script>
   import Game from './Game.js'
   import Square from './Square.vue'
+  import Connect from '../Connect/Connect.vue'
 
   export default {
     name: 'game',
@@ -29,7 +30,9 @@
         game: null,
         moveStack: null,
         leftSlice: [0, 8, 16, 24, 32, 40, 48, 56],
-        rightSlice: [8, 16, 24, 32, 40, 48, 56, 64]
+        rightSlice: [8, 16, 24, 32, 40, 48, 56, 64],
+        HOST: '127.0.0.1',
+        PORT: 3000
       }
     },
 
@@ -48,6 +51,20 @@
         if (this.moveStack !== null) {
           if (this.game.squares[this.moveStack].validMoves.includes(event.index)) {
             this.game.move(this.moveStack, event.index)
+            // Now send the new board to the server
+            const net = require('net')
+            const client = new net.Socket()
+
+            client.connect(this.PORT, this.HOST, () => {
+              console.log('CONNECTED TO: ' + this.HOST + ':' + this.PORT)
+              client.write(JSON.stringify(this.game.squares))
+            })
+
+            client.on('data', (data) => {
+              console.log(JSON.parse(data))
+            })
+
+            client.on('close', () => console.log('Connection closed'))
           }
           this.moveStack = null
         } else if (event.value === this.game.currentTurn) {
