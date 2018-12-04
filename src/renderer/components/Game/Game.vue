@@ -1,33 +1,13 @@
 <template>
   <div id="checkerboardContainer">
     <div id="checkerboard">
-      <!-- FIXME -->
-      <div class="row">
-        <square v-for="square in game.squares.slice(0,8)" v-bind:initialSquare="square"></square>
+      <div class="row" v-for="(n, x) in 8" :key=x>
+        <square v-for="square in game.squares.slice((x*8),(x*8)+8)"
+                :key=square.index
+                v-bind:initialSquare="square"
+                @select-square="selectSquare"
+        ></square>
       </div>
-      <div class="row">
-        <square v-for="square in game.squares.slice(8,16)" v-bind:initialSquare="square"></square>
-      </div>
-      <div class="row">
-        <square v-for="square in game.squares.slice(16,24)" v-bind:initialSquare="square"></square>
-      </div>
-      <div class="row">
-        <square v-for="square in game.squares.slice(24,32)" v-bind:initialSquare="square"></square>
-      </div>
-      <div class="row">
-        <square v-for="square in game.squares.slice(32,40)" v-bind:initialSquare="square"></square>
-      </div>
-      <div class="row">
-        <square v-for="square in game.squares.slice(40,48)" v-bind:initialSquare="square"></square>
-      </div>
-      <div class="row">
-        <square v-for="square in game.squares.slice(48,56)" v-bind:initialSquare="square"></square>
-      </div>
-      <div class="row">
-        <square v-for="square in game.squares.slice(56,64)" v-bind:initialSquare="square"></square>
-      </div>
-
-
     </div>
   </div>
 </template>
@@ -46,7 +26,8 @@
     data () {
       return {
         // TODO: Should discuss
-        game: null
+        game: null,
+        currentSquareIndex: null
       }
     },
 
@@ -60,6 +41,27 @@
 
       clearBoard () {
         // TODO: Necessary?
+      },
+      selectSquare (event) {
+        if (this.game.attacked === false && event.value === this.game.currentTurn) {
+          if (event.value === this.game.currentTurn) {
+            this.game.select(event.index)
+            this.currentSquareIndex = event.index
+          } else {
+            this.game.unselect()
+            this.currentSquareIndex = null
+          }
+        } else if (this.currentSquareIndex !== null) {
+          if (this.game.squares[this.currentSquareIndex].validMoves.includes(event.index)) {
+            this.game.move(this.currentSquareIndex, event.index)
+            if (this.game.attacked) {
+              this.currentSquareIndex = event.index
+              this.game.select(event.index)
+            } else {
+              this.currentSquareIndex = null
+            }
+          }
+        }
       }
     },
 
