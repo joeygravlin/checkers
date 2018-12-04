@@ -5,25 +5,15 @@ export default class Game {
     this.inProgress = true
     this.winner = null
     this.currentTurn = null
+    this.attacked = false
     this.squares = new Array(64).fill().map(s => new Square())
   }
 
   // TODO: Finish move
   move (currIndex, finalIndex) {
-    this.getValidMoves(currIndex)
-
     if (this.inProgress && this.currentTurn === this.squares[currIndex].value &&
       this.squares[currIndex].validMoves.indexOf(finalIndex) > -1) {
       let diff = finalIndex - currIndex
-
-      // player is attacking
-      if (Math.abs(diff) > 9) {
-        // remove the captured index
-        this.squares[currIndex + (diff / 2)].value = null
-        this.squares[currIndex + (diff / 2)].canAttack = false
-        this.squares[currIndex + (diff / 2)].isKing = false
-        this.validMoves = []
-      }
 
       this.squares[finalIndex].isKing = this.squares[currIndex].isKing
       this.squares[finalIndex].value = this.currentTurn
@@ -31,18 +21,34 @@ export default class Game {
       this.squares[currIndex].selected = false
       this.squares[currIndex].canAttack = false
       this.squares[currIndex].isKing = false
+      this.squares[currIndex].isSelected = false
+
+      // player is attacking
+      if (Math.abs(diff) > 9) {
+        // remove the captured index
+        this.squares[currIndex + (diff / 2)].value = null
+        this.squares[currIndex + (diff / 2)].canAttack = false
+        this.squares[currIndex + (diff / 2)].isKing = false
+        this.squares[currIndex].validMoves = []
+        this.attacked = true
+        this.select(finalIndex)
+      }
 
       // king me
       this.isKing()
-
-      this.squares.forEach(s => {
-        s.isValidMove = false
-        s.isSelected = false
-      })
-
       this.checkEndGame()
 
-      this.currentTurn = (this.currentTurn === Game.black) ? Game.white : Game.black
+      if (!this.squares[finalIndex].canAttack) {
+        this.attacked = false
+        this.squares.forEach(s => {
+          s.isSelected = false
+          s.isValidMove = false
+          s.canAttack = false
+          s.validMoves = []
+        })
+        this.attacked = false
+        this.currentTurn = (this.currentTurn === Game.black) ? Game.white : Game.black
+      }
 
       this.printBoard()
     } else {
@@ -275,8 +281,9 @@ export default class Game {
   unselect () {
     this.squares.forEach(s => {
       s.isSelected = false
+      s.canAttack = false
       s.isValidMove = false
-      s.validMoves = false
+      s.validMoves = []
     })
   }
 

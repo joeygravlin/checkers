@@ -45,7 +45,15 @@
         // TODO: Necessary?
       },
       selectSquare (event) {
-        if (this.currentSquareIndex !== null) {
+        if (this.game.attacked === false && event.value === this.game.currentTurn) {
+          if (event.value === this.game.currentTurn) {
+            this.game.select(event.index)
+            this.currentSquareIndex = event.index
+          } else {
+            this.game.unselect()
+            this.currentSquareIndex = null
+          }
+        } else if (this.currentSquareIndex !== null) {
           if (this.game.squares[this.currentSquareIndex].validMoves.includes(event.index)) {
             this.game.move(this.currentSquareIndex, event.index)
             if (this.game.attacked) {
@@ -54,19 +62,6 @@
             } else {
               this.currentSquareIndex = null
             }
-          } else if (this.game.attacked) {
-            this.currentSquareIndex = event.index
-            this.game.select(event.index)
-          } else {
-            this.currentSquareIndex = null
-          }
-        } else if (this.game.attacked === false) {
-          if (event.value === this.game.currentTurn) {
-            this.game.select(event.index)
-            this.currentSquareIndex = event.index
-          } else {
-            this.game.unselect()
-            this.currentSquareIndex = null
           }
         }
       }
