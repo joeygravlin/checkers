@@ -23,7 +23,9 @@ net.createServer((socket) => {
   socket.on('data', (data) => {
     console.log(JSON.parse(data))
     
-    clients.forEach((client) => {
+    clients.filter(s => s !== socket)
+	   .forEach((client) => {
+      console.log(`Writing to: ${client.nickname}`)
       client.write(data)
     })
   })

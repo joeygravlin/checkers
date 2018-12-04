@@ -16,7 +16,12 @@ const mutations = {
     console.log(state.game)
   },
   SET_BOARD (state, board) {
-    state.board = board
+    console.log('SET_BOARD')
+    // state.game.squares = board
+    state.game.squares = []
+    state.game.squares.push(...board)
+    state.game.printBoard()
+
   },
   WIN_GAME (state, winner) {
     state.winner = winner

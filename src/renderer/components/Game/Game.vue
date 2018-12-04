@@ -41,6 +41,12 @@
       ])
     },
 
+    watch: {
+      game: (oldGame, newGame) => {
+        console.log('Watch yo self!')
+      }
+    },
+
     methods: {
       clearBoard () {
         // TODO: Necessary?
@@ -65,6 +71,8 @@
             }
           }
         }
+        // FIXME: currently, we just write the board out to the socket after every click
+        this.clientSocket.write(JSON.stringify(this.game.squares))
       }
     },
 

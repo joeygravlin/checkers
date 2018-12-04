@@ -30,7 +30,8 @@ export default {
     // localComputed () { /* ... */ },
     // mix this into the outer object with the object spread operator
     ...mapGetters([
-      'clientSocket'
+      'clientSocket',
+      'game'
     ])
   },
   methods: {
@@ -48,6 +49,7 @@ export default {
 
         socket.on('data', (data) => {
           console.log(JSON.parse(data))
+          this.$store.commit('SET_BOARD', JSON.parse(data))
         })
       }
   }
