@@ -1,19 +1,13 @@
 <template>
   <div id="checkerboardContainer">
     <div id="checkerboard">
-<<<<<<< HEAD
-        <div class="row" v-for="(n, x) in 8" :key=x>
-            <square v-for="square in game.squares.slice((x*8),(x*8)+8)"
-                    :key=square.index
-=======
-        <div class="row" v-for="x in 8" :key=x>
-            <square :key=square.index
-                    v-for="square in game.squares.slice(leftSlice[x-1],rightSlice[x-1])"
->>>>>>> af06f121f7e30ff59dd4235bf05f09a4fa94055c
-                    v-bind:initialSquare="square"
-                    @select-square="selectSquare"
-            ></square>
-        </div>
+      <div class="row" v-for="(n, x) in 8" :key=x>
+        <square v-for="square in game.squares.slice((x*8),(x*8)+8)"
+                :key=square.index
+                v-bind:initialSquare="square"
+                @select-square="selectSquare"
+        ></square>
+      </div>
     </div>
   </div>
 </template>
