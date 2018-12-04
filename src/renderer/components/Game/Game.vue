@@ -2,8 +2,8 @@
   <div id="checkerboardContainer">
     <div id="checkerboard">
         <div class="row" v-for="x in 8" :key=x>
-            <square v-for="square in game.squares.slice(leftSlice[x-1],rightSlice[x-1])"
-                    :key=square.index
+            <square :key=square.index
+                    v-for="square in game.squares.slice(leftSlice[x-1],rightSlice[x-1])"
                     v-bind:initialSquare="square"
                     @select-square="selectSquare"
             ></square>
@@ -32,7 +32,8 @@
         leftSlice: [0, 8, 16, 24, 32, 40, 48, 56],
         rightSlice: [8, 16, 24, 32, 40, 48, 56, 64],
         HOST: '127.0.0.1',
-        PORT: 3000
+        PORT: 3000,
+        currentSquareIndex: null
       }
     },
 
@@ -48,31 +49,24 @@
         // TODO: Necessary?
       },
       selectSquare (event) {
-        if (this.moveStack !== null) {
-          if (this.game.squares[this.moveStack].validMoves.includes(event.index)) {
-            this.game.move(this.moveStack, event.index)
-            // Now send the new board to the server
-            const net = require('net')
-            const client = new net.Socket()
-
-            client.connect(this.PORT, this.HOST, () => {
-              console.log('CONNECTED TO: ' + this.HOST + ':' + this.PORT)
-              client.write(JSON.stringify(this.game.squares))
-            })
-
-            client.on('data', (data) => {
-              console.log(JSON.parse(data))
-            })
-
-            client.on('close', () => console.log('Connection closed'))
+        if (this.game.attacked === false && event.value === this.game.currentTurn) {
+          if (event.value === this.game.currentTurn) {
+            this.game.select(event.index)
+            this.currentSquareIndex = event.index
+          } else {
+            this.game.unselect()
+            this.currentSquareIndex = null
           }
-          this.moveStack = null
-        } else if (event.value === this.game.currentTurn) {
-          this.game.select(event.index)
-          this.moveStack = event.index
-        } else {
-          this.game.unselect()
-          this.moveStack = null
+        } else if (this.currentSquareIndex !== null) {
+          if (this.game.squares[this.currentSquareIndex].validMoves.includes(event.index)) {
+            this.game.move(this.currentSquareIndex, event.index)
+            if (this.game.attacked) {
+              this.currentSquareIndex = event.index
+              this.game.select(event.index)
+            } else {
+              this.currentSquareIndex = null
+            }
+          }
         }
       }
     },
