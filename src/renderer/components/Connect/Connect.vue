@@ -12,19 +12,12 @@ export default {
   name: 'connect',
   data () {
       return {
-          HOST: '127.0.0.1',
-          PORT: 3000
+          
       }
   },
   methods: {
       connect () {
-        const net = require('net')
-        const client = new net.Socket()
-
-        client.connect(this.PORT, this.HOST, () => {
-          console.log('CONNECTED TO: ' + this.HOST + ':' + this.PORT)
-          client.write(Game.game)
-        })
+        
       }
   }
 }

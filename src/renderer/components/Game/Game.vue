@@ -29,9 +29,10 @@
         // TODO: Should discuss
         game: null,
         moveStack: null,
-        HOST: '127.0.0.1',
-        PORT: 3000,
-        currentSquareIndex: null
+        currentSquareIndex: null,
+        host: 'localhost',
+        port: 9381,
+        connection: null
       }
     },
 
@@ -73,6 +74,19 @@
       // Init the game on component creation for now...
       // Later, we will init on opponent connect via network.
       this.start()
+
+      const net = require('net')
+      const socket = new net.Socket()
+
+      socket.connect(this.port, this.host, () => {
+        console.log(`Connected to ${this.host}:${this.port}`)
+        // send the board
+        socket.write(JSON.stringify(this.game))
+      })
+
+      socket.on('data', (data) => {
+        console.log(JSON.parse(data))
+      })
     }
   }
 </script>

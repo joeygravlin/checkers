@@ -1,18 +1,32 @@
 const net = require('net')
-const HOST = '127.0.0.1'
-const PORT = 3000
+
+const host = 'localhost'
+const port = 9381
+
+let clients = []
+let clientNum = 0
 
 net.createServer((socket) => {
-  console.log(`CONNECTED: ${socket.remoteAddress}:${socket.remotePort}`)
+  
+  socket.nickname = `Client ${clientNum}`
+
+  clients.push(socket)
+  clientNum++
+
+  let clientName = socket.nickname
+  console.log(`${clientName} has connected`)
+
+  socket.on('end', () => {
+    console.log(`${clientName} has disconnected`)
+  })
 
   socket.on('data', (data) => {
-    console.log(`Board: ${data}`)
-    socket.write(`${data}`)
+    console.log(JSON.parse(data))
+    
+    clients.forEach((client) => {
+      client.write(data)
+    })
   })
+}).listen(port, host)
 
-  socket.on('close', (data) => {
-    console.log(`Closed: ${socket.remoteAddress}:${socket.remotePort}`)
-  })
-
-}).listen(PORT, HOST)
-console.log(`\nServer listening on ${HOST}:${PORT}\n`)
+console.log(`Listening on ${host}:${port}`)
