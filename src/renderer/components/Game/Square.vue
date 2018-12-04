@@ -98,6 +98,7 @@
 
       &.isValidMove
         background-color: blue
+        cursor: pointer
 
       &.isSelected
         background-color: blue
