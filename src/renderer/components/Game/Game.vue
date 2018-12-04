@@ -1,8 +1,8 @@
 <template>
   <div id="checkerboardContainer">
     <div id="checkerboard">
-        <div class="row" v-for="x in 8" :key=x>
-            <square v-for="square in game.squares.slice(leftSlice[x-1],rightSlice[x-1])"
+        <div class="row" v-for="(n, x) in 8" :key=x>
+            <square v-for="square in game.squares.slice((x*8),(x*8)+8)"
                     :key=square.index
                     v-bind:initialSquare="square"
                     @select-square="selectSquare"
@@ -27,9 +27,7 @@
       return {
         // TODO: Should discuss
         game: null,
-        currentSquareIndex: null,
-        leftSlice: [0, 8, 16, 24, 32, 40, 48, 56],
-        rightSlice: [8, 16, 24, 32, 40, 48, 56, 64]
+        currentSquareIndex: null
       }
     },
 
