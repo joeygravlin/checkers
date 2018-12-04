@@ -12,6 +12,8 @@
 <script>
 import Game from '../Game/Game'
 
+import {mapGetters} from 'vuex';
+
 export default {
   name: 'connect',
   // props: {
@@ -21,13 +23,32 @@ export default {
   data () {
       return {
         host: '127.0.0.1',
-        port: 3000,
-        client: null
+        port: 9381
       }
+  },
+  computed: {
+    // localComputed () { /* ... */ },
+    // mix this into the outer object with the object spread operator
+    ...mapGetters([
+      'clientSocket'
+    ])
   },
   methods: {
       connect () {
+        const net = require('net')
+        const socket = new net.Socket()
 
+        socket.connect(this.port, this.host, () => {
+          console.log(`Connected to ${this.host}:${this.port}`)
+          // send the board
+          // socket.write(JSON.stringify(this.game))
+        })
+
+        this.$store.commit('CONNECT', socket)
+
+        socket.on('data', (data) => {
+          console.log(JSON.parse(data))
+        })
       }
   }
 }
