@@ -28,7 +28,10 @@
 
     data () {
       return {
-        currentSquareIndex: null
+        currentSquareIndex: null,
+        host: 'localhost',
+        port: 9381,
+        connection: null
       }
     },
 
@@ -74,6 +77,19 @@
       console.log('Pre "INIT_GAME')
       this.$store.commit('INIT_GAME')
       console.log(`game: ${this.game}`)
+
+      const net = require('net')
+      const socket = new net.Socket()
+
+      socket.connect(this.port, this.host, () => {
+        console.log(`Connected to ${this.host}:${this.port}`)
+        // send the board
+        socket.write(JSON.stringify(this.game))
+      })
+
+      socket.on('data', (data) => {
+        console.log(JSON.parse(data))
+      })
     }
   }
 </script>
