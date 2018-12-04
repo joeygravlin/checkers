@@ -35,7 +35,7 @@
     },
 
     mounted () {
-      console.log(this.square)
+      // console.log(this.square)
     }
   }
 </script>
