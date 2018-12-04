@@ -2,7 +2,7 @@
   <div id="checkerboardContainer">
     <div id="checkerboard">
       <div class="row" v-for="(n, x) in 8" :key=x>
-        <square v-for="square in gameAlias.squares.slice((x*8),(x*8)+8)"
+        <square v-for="square in game.squares.slice((x*8),(x*8)+8)"
                 :key=square.index
                 v-bind:initialSquare="square"
                 @select-square="selectSquare"
@@ -28,8 +28,6 @@
 
     data () {
       return {
-        // TODO: Should discuss
-        game: null,
         currentSquareIndex: null
       }
     },
@@ -37,38 +35,31 @@
     computed: {
       // localComputed () { /* ... */ },
       // mix this into the outer object with the object spread operator
-      ...mapGetters({
-        clientSocket: state => state.clientSocket,
-        gameAlias: 'game'
-      })
+      ...mapGetters([
+        'clientSocket',
+        'game'
+      ])
     },
 
     methods: {
-      start () {
-        this.clearBoard()
-        this.game = new Game()
-        // TODO: moar?
-        this.game.startGame()
-      },
-
       clearBoard () {
         // TODO: Necessary?
       },
       selectSquare (event) {
-        if (this.gameAlias.attacked === false && event.value === this.gameAlias.currentTurn) {
-          if (event.value === this.gameAlias.currentTurn) {
-            this.gameAlias.select(event.index)
+        if (this.game.attacked === false && event.value === this.game.currentTurn) {
+          if (event.value === this.game.currentTurn) {
+            this.game.select(event.index)
             this.currentSquareIndex = event.index
           } else {
-            this.gameAlias.unselect()
+            this.game.unselect()
             this.currentSquareIndex = null
           }
         } else if (this.currentSquareIndex !== null) {
-          if (this.gameAlias.squares[this.currentSquareIndex].validMoves.includes(event.index)) {
-            this.gameAlias.move(this.currentSquareIndex, event.index)
-            if (this.gameAlias.attacked) {
+          if (this.game.squares[this.currentSquareIndex].validMoves.includes(event.index)) {
+            this.game.move(this.currentSquareIndex, event.index)
+            if (this.game.attacked) {
               this.currentSquareIndex = event.index
-              this.gameAlias.select(event.index)
+              this.game.select(event.index)
             } else {
               this.currentSquareIndex = null
             }
@@ -80,10 +71,9 @@
     created () {
       // Init the game on component creation for now...
       // Later, we will init on opponent connect via network.
-      this.start()
       console.log('Pre "INIT_GAME')
       this.$store.commit('INIT_GAME')
-      console.log(`gameAlias: ${this.gameAlias}`)
+      console.log(`game: ${this.game}`)
     }
   }
 </script>
