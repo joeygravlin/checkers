@@ -46,8 +46,14 @@ export default {
         this.$store.commit('CONNECT', socket)
 
         socket.on('data', (data) => {
-          console.log(JSON.parse(data))
-          this.$store.commit('SET_BOARD', JSON.parse(data))
+          let json = JSON.parse(data)
+          console.log(`Data from client: ${json}`)
+          let payload = {
+            moveCoodinates: json.moveCoodinates,
+            squares: json.squares
+          }
+          console.log(`Payload to commit${payload}`)
+          this.$store.commit('SET_BOARD', payload)
         })
       }
   }

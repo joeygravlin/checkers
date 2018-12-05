@@ -66,7 +66,14 @@
           }
         }
         // FIXME: currently, we just write the board out to the socket after every click
-        this.clientSocket.write(JSON.stringify(this.game.squares))
+
+        let payload = {
+          moveCoodinates: [this.currentSquareIndex, event.index],
+          squares: this.game.squares
+        }
+        console.log(`Payload to send: ${JSON.stringify(payload)}`)
+
+        this.clientSocket.write(JSON.stringify(payload))
       }
     },
 

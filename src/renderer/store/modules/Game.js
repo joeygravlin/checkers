@@ -15,24 +15,25 @@ const mutations = {
     state.game.startGame()
     console.log(state.game)
   },
-  SET_BOARD (state, board) {
+  SET_BOARD (state, payload) {
     console.log('SET_BOARD')
-    // // state.game.squares = board
+    state.game.movePiece(...payload.moveCoodinates)
+    // // state.game.squares = payload.squares
     // state.game.squares = []
-    // state.game.squares.push(...board)
+    // state.game.squares.push(...payload.squares)
     //
     // Vue Reactivity is Wiggity-Wack...
     // https://vuejs.org/v2/guide/list.html#Caveats
     for (var i = state.game.squares.length - 1; i >= 0; i--) {
-      state.game.squares[i].index = board[i].index
-      state.game.squares[i].value = board[i].value
-      state.game.squares[i].color = board[i].color
-      state.game.squares[i].isSelected = board[i].isSelected
-      state.game.squares[i].canAttack = board[i].canAttack
-      state.game.squares[i].isKing = board[i].isKing
-      state.game.squares[i].isValid = board[i].isValid
-      state.game.squares[i].isValidMove = board[i].isValidMove
-      state.game.squares[i].validMoves = board[i].validMoves
+      state.game.squares[i].index = payload.squares[i].index
+      state.game.squares[i].value = payload.squares[i].value
+      state.game.squares[i].color = payload.squares[i].color
+      state.game.squares[i].isSelected = payload.squares[i].isSelected
+      state.game.squares[i].canAttack = payload.squares[i].canAttack
+      state.game.squares[i].isKing = payload.squares[i].isKing
+      state.game.squares[i].isValid = payload.squares[i].isValid
+      state.game.squares[i].isValidMove = payload.squares[i].isValidMove
+      state.game.squares[i].validMoves = payload.squares[i].validMoves
     }
     state.game.printBoard()
 
