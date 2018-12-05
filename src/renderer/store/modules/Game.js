@@ -1,14 +1,10 @@
-import Game from '../../components/Game/Game'
+import Game from '../../components/Game/Game.js'
 
 const state = {
-  clientSocket: null,
   game: null
 }
 
 const mutations = {
-  CONNECT (state, clientSocket) {
-    state.clientSocket = clientSocket
-  },
   INIT_GAME (state) {
     console.log('INIT_GAME')
     state.game = new Game()
@@ -35,9 +31,6 @@ const actions = {
 }
 
 const getters = {
-  clientSocket (state) {
-    return state.clientSocket
-  },
   game (state) {
     console.log('Getting game from store.')
     console.log(state.game)
