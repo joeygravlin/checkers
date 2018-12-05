@@ -12,7 +12,7 @@
 <script>
 import Game from '../Game/Game'
 
-import {mapGetters} from 'vuex';
+import {mapGetters} from 'vuex'
 
 export default {
   name: 'connect',
