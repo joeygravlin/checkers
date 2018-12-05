@@ -59,8 +59,7 @@
             this.game.move(this.currentSquareIndex, event.index)
             let payload = {
               moveCoodinates: {currIndex: this.currentSquareIndex,
-                              finalIndex: event.index},
-              squares: this.game.squares
+                              finalIndex: event.index}
             }
             this.clientSocket.write(JSON.stringify(payload))
             console.log(`Payload to send: ${JSON.stringify(payload)}`)
