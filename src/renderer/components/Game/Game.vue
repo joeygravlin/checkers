@@ -57,6 +57,13 @@
         } else if (this.currentSquareIndex !== null) {
           if (this.game.squares[this.currentSquareIndex].validMoves.includes(event.index)) {
             this.game.move(this.currentSquareIndex, event.index)
+            let payload = {
+              moveCoodinates: {currIndex: this.currentSquareIndex,
+                              finalIndex: event.index},
+              squares: this.game.squares
+            }
+            this.clientSocket.write(JSON.stringify(payload))
+            console.log(`Payload to send: ${JSON.stringify(payload)}`)
             if (this.game.attacked) {
               this.currentSquareIndex = event.index
               this.game.select(event.index)
@@ -65,16 +72,6 @@
             }
           }
         }
-        // FIXME: currently, we just write the board out to the socket after every click
-
-        let payload = {
-          moveCoodinates: {currIndex: this.currentSquareIndex,
-                           finalIndex: event.index},
-          squares: this.game.squares
-        }
-        console.log(`Payload to send: ${JSON.stringify(payload)}`)
-
-        this.clientSocket.write(JSON.stringify(payload))
       }
     },
 
