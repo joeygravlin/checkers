@@ -17,6 +17,14 @@ const mutations = {
   ADD_PEER (state, peer) {
     state.peers.push(peer)
   },
+  REMOVE_PEER (state, peer) {
+    let index = state.peers.findIndex(p => p.addr===peer.addr && p.port===peer.port)
+    // console.log(`Index: ${index}`)
+    if (index >= 0) {
+      state.peers.splice(index, 1)
+      console.log(`Peer removed from peers: ${peer}`)
+    }
+  },
 
 }
 
