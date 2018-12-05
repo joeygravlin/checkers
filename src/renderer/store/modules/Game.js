@@ -17,7 +17,8 @@ const mutations = {
   },
   SET_BOARD (state, payload) {
     console.log('SET_BOARD')
-    state.game.movePiece(...payload.moveCoodinates)
+    state.game.movePiece(payload.moveCoodinates.currIndex,
+                         payload.moveCoodinates.finalIndex)
     // // state.game.squares = payload.squares
     // state.game.squares = []
     // state.game.squares.push(...payload.squares)
