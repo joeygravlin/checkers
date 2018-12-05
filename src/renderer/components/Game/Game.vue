@@ -1,13 +1,13 @@
 <template>
   <div id="checkerboardContainer">
     <div id="checkerboard">
-        <div class="row" v-for="x in 8" :key=x>
-            <square v-for="square in game.squares.slice(leftSlice[x-1],rightSlice[x-1])"
-                    :key=square.index
-                    v-bind:initialSquare="square"
-                    @select-square="selectSquare"
-            ></square>
-        </div>
+      <div class="row" v-for="(n, x) in 8" :key=x>
+        <square v-for="square in game.squares.slice((x*8),(x*8)+8)"
+                :key=square.index
+                v-bind:initialSquare="square"
+                @select-square="selectSquare"
+        ></square>
+      </div>
     </div>
   </div>
 </template>
@@ -15,6 +15,9 @@
 <script>
   import Game from './Game.js'
   import Square from './Square.vue'
+
+  import {mapGetters} from 'vuex';
+  // import {mapState} from 'vuex';
 
   export default {
     name: 'game',
@@ -25,22 +28,20 @@
 
     data () {
       return {
-        // TODO: Should discuss
-        game: null,
-        currentSquareIndex: null,
-        leftSlice: [0, 8, 16, 24, 32, 40, 48, 56],
-        rightSlice: [8, 16, 24, 32, 40, 48, 56, 64]
+        currentSquareIndex: null
       }
     },
 
-    methods: {
-      start () {
-        this.clearBoard()
-        this.game = new Game()
-        // TODO: moar?
-        this.game.startGame()
-      },
+    computed: {
+      // localComputed () { /* ... */ },
+      // mix this into the outer object with the object spread operator
+      ...mapGetters([
+        'clientSocket',
+        'game'
+      ])
+    },
 
+    methods: {
       clearBoard () {
         // TODO: Necessary?
       },
@@ -64,13 +65,17 @@
             }
           }
         }
+        // FIXME: currently, we just write the board out to the socket after every click
+        this.clientSocket.write(JSON.stringify(this.game.squares))
       }
     },
 
     created () {
       // Init the game on component creation for now...
       // Later, we will init on opponent connect via network.
-      this.start()
+      console.log('Pre "INIT_GAME')
+      this.$store.commit('INIT_GAME')
+      console.log(`game: ${this.game}`)
     }
   }
 </script>

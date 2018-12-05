@@ -1,35 +1,54 @@
 <template>
-  <h1 @click="connect">Connect to an opponent Player!</h1>
+  <div>
+    <h1>Connect to an opponent Player!</h1>
+    <label for="host">Host Address: </label>
+    <input v-model="host" id="host" placeholder="enter opponent's host address">
+    <label for="port">Port: </label>
+    <input v-model="port" id="port" placeholder="enter opponent's listening port">
+    <button @click="connect">Connect to an opponent Player!</button>
+  </div>
 </template>
 
 <script>
 import Game from '../Game/Game'
 
+import {mapGetters} from 'vuex';
+
 export default {
   name: 'connect',
+  // props: {
+  //   host: String,
+  //   port: Number
+  // },
   data () {
       return {
-          HOST: '127.0.0.1',
-          PORT: 3000,
-          client: null
+        host: '127.0.0.1',
+        port: 9381
       }
+  },
+  computed: {
+    // localComputed () { /* ... */ },
+    // mix this into the outer object with the object spread operator
+    ...mapGetters([
+      'clientSocket',
+      'game'
+    ])
   },
   methods: {
       connect () {
-          const net = require('net')
-          const client = new net.Socket()
-          this.client = client
+        const net = require('net')
+        const socket = new net.Socket()
 
-          client.connect(this.PORT, this.HOST, () => {
-            console.log('CONNECTED TO: ' + this.HOST + ':' + this.PORT)
-            client.write(Game.game)
+        socket.connect(this.port, this.host, () => {
+          console.log(`Connected to ${this.host}:${this.port}`)
         })
 
-        client.on('data', (data) => {
-            console.log('DATA: ' + data)
-        })
+        this.$store.commit('CONNECT', socket)
 
-        client.on('close', () => console.log('Connection closed'))
+        socket.on('data', (data) => {
+          console.log(JSON.parse(data))
+          this.$store.commit('SET_BOARD', JSON.parse(data))
+        })
       }
   }
 }

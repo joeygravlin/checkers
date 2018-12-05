@@ -35,7 +35,7 @@
     },
 
     mounted () {
-      console.log(this.square)
+      // console.log(this.square)
     }
   }
 </script>
@@ -97,10 +97,10 @@
             cursor: pointer
 
       &.isValidMove
-        background-color: blue
+        background-color: #8BC34A
         cursor: pointer
 
       &.isSelected
-        background-color: blue
+        background-color: #8BC34A
 
 </style>
