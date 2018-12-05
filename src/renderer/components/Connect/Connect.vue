@@ -9,9 +9,19 @@
     <div>
       <h2>Peers</h2>
       <label for="peerHost">Host Address: </label>
-      <input v-model="peers[0].addr" id="peerHost" placeholder="enter opponent's host address">
+      <input v-model="peerManual.addr" id="peerHost" placeholder="enter opponent's host address">
       <label for="peerPort">Port: </label>
-      <input v-model="peers[0].port" id="peerPort" placeholder="enter opponent's listening port">
+      <input v-model="peerManual.port" id="peerPort" placeholder="enter opponent's listening port">
+      <button @click="addPeer">Add to peers list</button>
+
+      <h3>Select a peer from list to connect to</h3>
+      <select v-model="selectedPeer">
+        <option disabled value="">Please select one</option>
+        <option v-for="peer in peers" v-bind:value="peer">
+          {{ peer.addr+':'+peer.port }}
+        </option>
+      </select>
+      <span>Selected Peer: {{ selectedPeer }}</span>
       <button @click="connect">Connect to peer!</button>
     </div>
   </div>
@@ -28,6 +38,11 @@ export default {
   // },
   data () {
       return {
+        peerManual: {
+          addr: '',
+          port: null
+        },
+        selectedPeer: null
         // host: {
         //   // addr: '127.0.0.1',
         //   // addr: '10.0.10.13',
@@ -51,12 +66,16 @@ export default {
     ])
   },
   methods: {
+      addPeer () {
+        this.$store.commit('ADD_PEER', this.peerManual)
+      },
       connect () {
         const net = require('net')
         const socket = new net.Socket()
 
-        socket.connect(this.peers[0].port, this.peers[0].addr, () => {
-          console.log(`Connected to ${this.peers[0].addr}:${this.peers[0].port}`)
+        console.log(`Connecting to ${this.selectedPeer.addr}:${this.selectedPeer.port}...`)
+        socket.connect(this.selectedPeer.port, this.selectedPeer.addr, () => {
+          console.log(`Connected to ${this.selectedPeer.addr}:${this.selectedPeer.port}`)
         })
 
         this.$store.commit('CONNECT', socket)
