@@ -21,7 +21,7 @@ const mutations = {
     console.log(payload.moveCoodinates.currIndex)
     console.log('payload.moveCoodinates.finalIndex:')
     console.log(payload.moveCoodinates.finalIndex)
-    state.game.movePiece(payload.moveCoodinates.currIndex,
+    state.game.move(payload.moveCoodinates.currIndex,
                          payload.moveCoodinates.finalIndex)
     // // state.game.squares = payload.squares
     // state.game.squares = []
