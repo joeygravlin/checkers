@@ -17,6 +17,10 @@ const mutations = {
   },
   SET_BOARD (state, payload) {
     console.log('SET_BOARD')
+    console.log('payload.moveCoodinates.currIndex:')
+    console.log(payload.moveCoodinates.currIndex)
+    console.log('payload.moveCoodinates.finalIndex:')
+    console.log(payload.moveCoodinates.finalIndex)
     state.game.movePiece(payload.moveCoodinates.currIndex,
                          payload.moveCoodinates.finalIndex)
     // // state.game.squares = payload.squares
