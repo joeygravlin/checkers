@@ -1,18 +1,35 @@
 <template>
   <div>
     <h1>Connect to an opponent Player!</h1>
-    <label for="host">Host Address: </label>
-    <input v-model="host" id="host" placeholder="enter opponent's host address">
-    <label for="port">Port: </label>
-    <input v-model="port" id="port" placeholder="enter opponent's listening port">
-    <button @click="connect">Connect to an opponent Player!</button>
+    <div>
+      <h2>Host Info</h2>
+      <p>Host address: {{host.addr}}</p>
+      <p>Host port: {{host.port}}</p>
+      <button @click="startServer">Start Server</button>
+    </div>
+    <div>
+      <h2>Peers</h2>
+      <label for="peerHost">Host Address: </label>
+      <input v-model="peerManual.addr" id="peerHost" placeholder="enter opponent's host address">
+      <label for="peerPort">Port: </label>
+      <input v-model="peerManual.port" id="peerPort" placeholder="enter opponent's listening port">
+      <button @click="addPeer">Add to peers list</button>
+
+      <h3>Select a peer from list to connect to</h3>
+      <select v-model="selectedPeer">
+        <option disabled value="">Please select one</option>
+        <option v-for="peer in peers" v-bind:value="peer">
+          {{ peer.addr+':'+peer.port }}
+        </option>
+      </select>
+      <span>Selected Peer: {{ selectedPeer }}</span>
+      <button @click="connect">Connect to peer!</button>
+    </div>
   </div>
 </template>
 
 <script>
-import Game from '../Game/Game'
-
-import {mapGetters} from 'vuex';
+import {mapGetters} from 'vuex'
 
 export default {
   name: 'connect',
@@ -22,34 +39,57 @@ export default {
   // },
   data () {
       return {
-        host: '127.0.0.1',
-        port: 9381
+        peerManual: {
+          addr: '',
+          port: null
+        },
+        selectedPeer: null
       }
   },
   computed: {
     // localComputed () { /* ... */ },
     // mix this into the outer object with the object spread operator
     ...mapGetters([
+      'server',
       'clientSocket',
+      'host',
+      'peers',
       'game'
     ])
   },
   methods: {
+      startServer () {
+        this.$store.commit('START_SERVER')
+      },
+      addPeer () {
+        this.$store.commit('ADD_PEER', this.peerManual)
+      },
       connect () {
         const net = require('net')
         const socket = new net.Socket()
 
-        socket.connect(this.port, this.host, () => {
-          console.log(`Connected to ${this.host}:${this.port}`)
+        console.log(`Connecting to ${this.selectedPeer.addr}:${this.selectedPeer.port}...`)
+        socket.connect(this.selectedPeer.port, this.selectedPeer.addr, () => {
+          console.log(`Connected to ${this.selectedPeer.addr}:${this.selectedPeer.port}`)
         })
 
         this.$store.commit('CONNECT', socket)
 
         socket.on('data', (data) => {
-          console.log(JSON.parse(data))
-          this.$store.commit('SET_BOARD', JSON.parse(data))
+          let payload = JSON.parse(data)
+          console.log(`Data from client: `)//${payload}`)
+          console.log(payload)
+          // console.log(`Payload to commit${payload}`)
+          this.$store.commit('SET_BOARD', payload)
         })
       }
+  },
+  created () {
+    // Let's just push up to 5 peers for now, just to see that the commits are working...
+    if (this.peers.length < 5) {
+      // FIXME: we manually populate the peers[], assuming another client will be running on this machine. Later, we will discover peers via mdns...
+      this.$store.commit('ADD_PEER', {addr: this.host.addr, port: this.host.port})
+    }
   }
 }
 </script>

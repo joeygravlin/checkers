@@ -16,8 +16,8 @@
   import Game from './Game.js'
   import Square from './Square.vue'
 
-  import {mapGetters} from 'vuex';
-  // import {mapState} from 'vuex';
+  import {mapGetters} from 'vuex'
+  // import {mapState} from 'vuex'
 
   export default {
     name: 'game',
@@ -57,6 +57,12 @@
         } else if (this.currentSquareIndex !== null) {
           if (this.game.squares[this.currentSquareIndex].validMoves.includes(event.index)) {
             this.game.move(this.currentSquareIndex, event.index)
+            let payload = {
+              moveCoodinates: {currIndex: this.currentSquareIndex,
+                              finalIndex: event.index}
+            }
+            this.clientSocket.write(JSON.stringify(payload))
+            console.log(`Payload to send: ${JSON.stringify(payload)}`)
             if (this.game.attacked) {
               this.currentSquareIndex = event.index
               this.game.select(event.index)
@@ -65,8 +71,6 @@
             }
           }
         }
-        // FIXME: currently, we just write the board out to the socket after every click
-        this.clientSocket.write(JSON.stringify(this.game.squares))
       }
     },
 

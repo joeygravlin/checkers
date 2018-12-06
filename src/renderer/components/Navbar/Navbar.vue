@@ -3,17 +3,13 @@
         <ul>
             <router-link to="/game" activeClass="active" tag="li"><a class="nav-link">Play</a></router-link>
             <router-link to="/connect" activeClass="active" tag="li"><a class="nav-link">Connect</a></router-link>
-            <li @click="enableDarkMode()">Dark Mode</li>
         </ul>
     </div>
 </template>
 
 <script>
 export default {
-  name: 'navbar',
-  methods: {
-    enableDarkMode () {}
-  }
+  name: 'navbar'
 }
 </script>
 
@@ -44,8 +40,12 @@ export default {
                     box-shadow: 1px 0px 4px #000000
 
                 a
+                    padding: 5px
                     color: #000000
                     text-decoration: none
+
+                &.active
+                    background-color: #8BC34A
 
 </style>
 
