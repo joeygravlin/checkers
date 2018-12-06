@@ -37,7 +37,8 @@
       // mix this into the outer object with the object spread operator
       ...mapGetters([
         'clientSocket',
-        'game'
+        'game',
+        'color'
       ])
     },
 
@@ -46,7 +47,9 @@
         // TODO: Necessary?
       },
       selectSquare (event) {
-        if (this.game.attacked === false && event.value === this.game.currentTurn) {
+        if (this.game.attacked === false &&
+            event.value === this.game.currentTurn &&
+            this.color === event.value) {
           if (event.value === this.game.currentTurn) {
             this.game.select(event.index)
             this.currentSquareIndex = event.index

@@ -58,8 +58,7 @@ const mutations = {
       state.peers.splice(index, 1)
       console.log(`Peer removed from peers: ${peer}`)
     }
-  },
-
+  }
 }
 
 const actions = {
