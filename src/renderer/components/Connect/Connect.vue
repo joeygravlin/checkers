@@ -5,6 +5,7 @@
       <h2>Host Info</h2>
       <p>Host address: {{host.addr}}</p>
       <p>Host port: {{host.port}}</p>
+      <button @click="startServer">Start Server</button>
     </div>
     <div>
       <h2>Peers</h2>
@@ -43,22 +44,13 @@ export default {
           port: null
         },
         selectedPeer: null
-        // host: {
-        //   // addr: '127.0.0.1',
-        //   // addr: '10.0.10.13',
-        //   addr: address(),
-        //   port: 9381
-        // }
       }
   },
   computed: {
-    // peer () {
-    //   return {addr: this.host.addr, port: this.host.port}
-    //   // peers: [{addr: '127.0.0.1', port: 9381}]
-    // },
     // localComputed () { /* ... */ },
     // mix this into the outer object with the object spread operator
     ...mapGetters([
+      'server',
       'clientSocket',
       'host',
       'peers',
@@ -66,6 +58,9 @@ export default {
     ])
   },
   methods: {
+      startServer () {
+        this.$store.commit('START_SERVER')
+      },
       addPeer () {
         this.$store.commit('ADD_PEER', this.peerManual)
       },

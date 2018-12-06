@@ -1,6 +1,12 @@
+const net = require('net')
 const address = require('network-address')
 
 const state = {
+  server: {
+    server: null,
+    clients: [],
+    clientNum: 0
+  },
   clientSocket: null,
   host: {
     // addr: '127.0.0.1',
@@ -11,6 +17,34 @@ const state = {
 }
 
 const mutations = {
+  START_SERVER (state) {
+    state.server.server = net.createServer((socket) => {
+
+      socket.nickname = `Client ${state.server.clientNum}`
+
+      state.server.clients.push(socket)
+      state.server.clientNum++
+
+      let clientName = socket.nickname
+      console.log(`${clientName} has connected`)
+
+      socket.on('end', () => {
+        console.log(`${clientName} has disconnected`)
+      })
+
+      socket.on('data', (data) => {
+        console.log(JSON.parse(data))
+
+        state.server.clients.filter(s => s !== socket)
+         .forEach((client) => {
+          console.log(`Writing to: ${client.nickname}`)
+          client.write(data)
+        })
+      })
+    }).listen(state.host.port, state.host.addr)
+
+    console.log(`Listening on ${state.host.addr}:${state.host.port}`)
+  },
   CONNECT (state, clientSocket) {
     state.clientSocket = clientSocket
   },
@@ -32,6 +66,9 @@ const actions = {
 }
 
 const getters = {
+  server (state) {
+    return state.server
+  },
   clientSocket (state) {
     return state.clientSocket
   },
