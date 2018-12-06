@@ -60,6 +60,7 @@ export default {
   methods: {
       startServer () {
         this.$store.commit('START_SERVER')
+        this.$store.commit('SET_PLAYER')
       },
       addPeer () {
         this.$store.commit('ADD_PEER', this.peerManual)

@@ -3,7 +3,7 @@ const address = require('network-address')
 
 const state = {
   server: {
-    server: null,
+    socket: null,
     clients: [],
     clientNum: 0
   },
@@ -18,7 +18,7 @@ const state = {
 
 const mutations = {
   START_SERVER (state) {
-    state.server.server = net.createServer((socket) => {
+    state.server.socket = net.createServer((socket) => {
 
       socket.nickname = `Client ${state.server.clientNum}`
 
@@ -58,8 +58,7 @@ const mutations = {
       state.peers.splice(index, 1)
       console.log(`Peer removed from peers: ${peer}`)
     }
-  },
-
+  }
 }
 
 const actions = {

@@ -1,7 +1,8 @@
 import Game from '../../components/Game/Game.js'
 
 const state = {
-  game: null
+  game: null,
+  color: 'w'
 }
 
 const mutations = {
@@ -16,10 +17,12 @@ const mutations = {
     state.game.move(payload.moveCoodinates.currIndex,
                          payload.moveCoodinates.finalIndex)
     state.game.printBoard()
-
   },
   WIN_GAME (state, winner) {
     state.winner = winner
+  },
+  SET_PLAYER (state) {
+    state.color = 'b'
   }
 }
 
@@ -35,6 +38,9 @@ const getters = {
     console.log('Getting game from store.')
     console.log(state.game)
     return state.game
+  },
+  color (state) {
+    return state.color
   }
 }
 
