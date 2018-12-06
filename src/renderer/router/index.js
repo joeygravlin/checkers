@@ -7,8 +7,7 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'game',
-      component: require('@/components/Game').default
+      redirect: '/game',
     },
     {
       path: '/game',
