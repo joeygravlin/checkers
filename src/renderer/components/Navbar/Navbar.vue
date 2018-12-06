@@ -40,8 +40,12 @@ export default {
                     box-shadow: 1px 0px 4px #000000
 
                 a
+                    padding: 5px
                     color: #000000
                     text-decoration: none
+
+                &.active
+                    background-color: #8BC34A
 
 </style>
 
