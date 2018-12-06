@@ -10,7 +10,7 @@
       </div>
     </div>
     <div v-if="!game.inProgress">
-      <div v-if="game.winner === this.color">
+      <div v-if="!game.winner === this.color">
         <p class="gameEndMessage">Yeet, you won</p>
       </div>
       <div v-else>
