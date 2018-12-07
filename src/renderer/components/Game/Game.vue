@@ -12,6 +12,16 @@
       </div>
     </div>
     <div>
+      <div v-if="!game.inProgress">
+        <div v-if="!game.winner === this.color">
+          <p class="gameEndMessage">Yeet, you won</p>
+        </div>
+        <div v-else>
+          <p class="gameEndMessage">Ope, you lost</p>
+        </div>
+      </div>
+    </div>
+    <div>
       <info></info>
     </div>
   </div>
@@ -100,6 +110,12 @@
         justify-content: center
         margin-top: 21px
 
+        .gameEndMessage
+            position: absolute
+            bottom: 0
+            left: 45%
+            font-size: 24px
+
         #checkerboard
             width: 479.8px
             height: 479.8px
@@ -110,5 +126,4 @@
                 width: 480px
                 display: flex
                 flex-direction: row
-
 </style>
