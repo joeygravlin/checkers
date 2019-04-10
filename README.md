@@ -2,6 +2,18 @@
 
 > Checkers app built on electron-vue.
 
+#### Screenshot
+![Checkers Demo Screenshot](checkers_demo_screenshot.png)
+
+#### How to Play
+
+1. Launch two instances of app.
+  - On linux: `yarn run build` then run two instances of `build/checkers*.AppImage`
+2. Go to 'connect' page on both clients.
+3. On either of the clients, start the server. Then, on that same client, connect to "yourself".
+4. On the other client, connect to the server running on the other client.
+5. On both clients, go back to the 'play' page and play a game!
+
 #### Build Setup
 
 ``` bash
@@ -22,15 +34,6 @@ yarn test
 yarn run lint
 
 ```
-
-#### How to Play
-
-1. Launch two instances of app.
-  - On linux: `yarn run build` then run two instances of `build/checkers*.AppImage`
-2. Go to 'connect' page on both clients.
-3. On either of the clients, start the server. Then, on that same client, connect to "yourself".
-4. On the other client, connect to the server running on the other client.
-5. On both clients, go back to the 'play' page and play a game!
 
 ---
 
